@@ -1,0 +1,147 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>user-registration</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<!--  <ion-stepper-->
+<!--    [style]="themeService.data.value.isDarkTheme ? 'background-color: black; color: white' : 'background-color: white; color: black'"-->
+<!--    #stepper (selectIndexChange)="selectChange($event)">-->
+<!--    <ion-step label="Step1"-->
+<!--              description="Step1 description">-->
+      <form [formGroup]="firstFormGroup" [style]="themeService.data.value.isDarkTheme ? 'background-color: black; color: white' : 'background-color: white; color: black'">
+        <ng-template style="color: white;">Fill out your name</ng-template>
+        <ion-item style="width: 100%">
+          <ion-label [style]="themeService.data.value.isDarkTheme ? 'color: white' : 'color: black'">
+            Login
+          </ion-label>
+          <ion-input  placeholder="Login"
+                      [style]="themeService.data.value.isDarkTheme ? 'width: 100%;box-shadow: 0 1px 0;' :'width: 100%'"
+                      [formControl]="login" required>
+          </ion-input>
+        </ion-item>
+        <ion-item style="width: 100%">
+          <ion-label [style]="themeService.data.value.isDarkTheme ? 'color: white' : 'color: black'">
+            Enter your password
+          </ion-label>
+          <ion-input type="password"
+                     [style]="themeService.data.value.isDarkTheme ? 'width: 100%;box-shadow: 0 1px 0;' :'width: 100%'"
+                     [formControl]="password">
+          </ion-input>
+        </ion-item>
+        <ion-item style="width: 100%">
+          <ion-label [style]="themeService.data.value.isDarkTheme ? 'color: white' : 'color: black'">
+            Confirm your password
+          </ion-label>
+          <ion-input type="password"
+                     [style]="themeService.data.value.isDarkTheme ? 'width: 100%;box-shadow: 0 1px 0;' :'width: 100%'"
+                     [formControl]="confirmPassword">
+          </ion-input>
+        </ion-item>
+        <div *ngIf="firstFormGroup.hasError('passwordError') && firstFormGroup.controls.confirmPassword.touched">
+          Password is not valid</div>
+        <div *ngIf="firstFormGroup.hasError('passwordLengthError')">
+          Password should have min 10 symbols length
+        </div>
+        <div>
+          <button ion-button small ionicStepperNext>Next</button>
+        </div>
+      </form>
+<!--    </ion-step>-->
+<!--    <ion-step label="Step2 - Step2 - Step2"-->
+<!--              description="Step1 description">-->
+      <form [formGroup]="secondFormGroup">
+        <ng-template>Fill out your address</ng-template>
+        <ion-item style="width: 100%">
+          <ion-label [style]="themeService.data.value.isDarkTheme ? 'color: white' : 'color: black'">
+            Name
+          </ion-label>
+          <ion-input placeholder="Name"
+                     [style]="themeService.data.value.isDarkTheme ? 'width: 100%;box-shadow: 0 1px 0;' :'width: 100%'"
+                     [formControl]="name" required>
+          </ion-input>
+        </ion-item>
+        <ion-item style="width: 100%">
+          <ion-label [style]="themeService.data.value.isDarkTheme ? 'color: white' : 'color: black'">
+            Last Name
+          </ion-label>
+          <ion-input placeholder="Last Name"
+                     [style]="themeService.data.value.isDarkTheme ? 'width: 100%;box-shadow: 0 1px 0;' :'width: 100%'"
+                     [formControl]="lastName" required>
+          </ion-input>
+        </ion-item>
+        <ion-item style="width: 100%">
+          <ion-label>City</ion-label>
+          <ion-input [formControl]="city"
+                     [style]="themeService.data.value.isDarkTheme ? 'width: 100%;box-shadow: 0 1px 0;' :'width: 100%'"
+                     placeholder="Ex. New York"
+                     required>
+          </ion-input>
+        </ion-item>
+        <ion-item style="width: 100%">
+          <ion-label [style]="themeService.data.value.isDarkTheme ? 'color: white' : 'color: black'">
+            Address
+          </ion-label>
+          <ion-input [formControl]="address"
+                     [style]="themeService.data.value.isDarkTheme ? 'width: 100%;box-shadow: 0 1px 0;' :'width: 100%'"
+                     placeholder="Ex. 1 Main St"
+                     required>
+          </ion-input>
+        </ion-item>
+        <ion-item style="width: 100%">
+          <ion-label [style]="themeService.data.value.isDarkTheme ? 'color: white' : 'color: black'">
+            Post Code
+          </ion-label>
+          <ion-input [formControl]="postCode" placeholder="80100"
+                     [style]="themeService.data.value.isDarkTheme ? 'width: 100%;box-shadow: 0 1px 0;' :'width: 100%'"
+                     required>
+          </ion-input>
+        </ion-item>
+        <ion-item style="width: 100%">
+          <ion-label [style]="themeService.data.value.isDarkTheme ? 'color: white' : 'color: black'">
+            Email
+          </ion-label>
+          <ion-input [formControl]="email"
+                     placeholder="Example@gmail.com"
+                     [style]="themeService.data.value.isDarkTheme ? 'width: 100%;box-shadow: 0 1px 0;' :'width: 100%'"
+                     required>
+          </ion-input>
+        </ion-item>
+        <div *ngIf="secondFormGroup.hasError('emailError')">
+          Should be valid email address. Please check your email address. Address should ended ".com"
+        </div>
+        <ion-item  style="width: 100%">
+          <ion-label [style]="themeService.data.value.isDarkTheme ? 'color: white' : 'color: black'">
+            Phone number
+          </ion-label>
+          <ion-input [formControl]="phone"
+                     [style]="themeService.data.value.isDarkTheme ? 'width: 100%;box-shadow: 0 1px 0;' :'width: 100%'"
+                     placeholder="866-457-4757"
+                     required>
+            <ion-icon ios="ios-call" md="md-call" matSuffix></ion-icon>
+          </ion-input>
+        </ion-item>
+        <div *ngIf="secondFormGroup.hasError('phoneError')">Enter a numbers</div>
+        <div>
+          <button ion-button color="light" small ionicStepperPrevious>Previous</button>
+          <button ion-button small ionicStepperNext>Next</button>
+        </div>
+      </form>
+<!--    </ion-step>-->
+<!--    <ion-step>-->
+      <ng-template>Done</ng-template>
+      <p>You are now done.</p>
+      <div>
+        <button ion-button color="light" small ionicStepperPrevious>Previous</button>
+        <div *ngIf="!user">
+          <ion-button (click)="onSave(firstFormGroup, secondFormGroup)" >Save</ion-button>
+        </div>
+        <div *ngIf="user">
+          <ion-button (click)="onUpdate(firstFormGroup, secondFormGroup)" >Update</ion-button>
+        </div>
+      </div>
+<!--    </ion-step>-->
+<!--  </ion-stepper>-->
+
+</ion-content>

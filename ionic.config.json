@@ -1,0 +1,7 @@
+{
+  "name": "pizza-shop-mobile",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

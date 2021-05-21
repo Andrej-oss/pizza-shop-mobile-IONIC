@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>user-auth</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<!--  <ion-card class="card-auth"-->
+<!--            [style]="themeService.data.value.isDarkTheme ? 'background-color: black; color: white' : 'background-color: white; color: black'">-->
+    <ion-list class="card-auth"
+              [style]="themeService.data.value.isDarkTheme ? 'background-color: black; color: white' : 'background-color: white; color: black'">
+      <form [formGroup]="authForm">
+        <ng-template>Fill out your name</ng-template>
+        <ion-item>
+          <ion-label [style]="themeService.data.value.isDarkTheme ? 'color: white' : 'color: black'" floating>
+            Login
+          </ion-label>
+          <ion-input
+            placeholder="Login"
+            [formControl]="username" required>
+          </ion-input>
+        </ion-item>
+        <ion-item
+          [style]="themeService.data.value.isDarkTheme ? 'width: 100%;box-shadow: 0 1px 0;' :'width: 100%'">
+          <ion-label [style]="themeService.data.value.isDarkTheme ? 'color: white' : 'color: black'" floating>
+            Enter your password
+          </ion-label>
+          <ion-input type="password"
+                     [type]="hide ? 'password' : 'text'" [formControl]="password" clear-input>
+          </ion-input>
+        </ion-item>
+      </form>
+      <ion-button
+        aria-label="Show an example snack-bar"
+        (click)="onAuthenticate(authForm)"
+        [disabled]="authForm.invalid || authForm.disabled"
+        style="left: 70%; background-color: white; margin-top: 5%">
+        Login
+      </ion-button>
+      <div *ngIf="error" class="card-auth-error">
+        <a>{{error}}</a>
+      </div>
+      <div class="card-auth-link-reg">
+        <a (click)="onRegistration()">
+          Don't registered?
+        </a>
+      </div>
+      <div class="card-auth-link-rem">
+        <a (click)="onReminder()">
+          Forget your password or login?
+        </a>
+      </div>
+    </ion-list>
+<!--  </ion-card>-->
+</ion-content>

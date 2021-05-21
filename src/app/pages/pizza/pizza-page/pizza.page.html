@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>pizza</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let pizza of pizzas">
+    <ion-item>
+      <ion-icon name="pin" slot="start"></ion-icon>
+      <ion-label><img [src]="url+pizza.path"
+                      class="pizza-card-image"
+      ></ion-label>
+      <ion-button fill="outline" slot="end" (click)="onPizzaDetail(pizza.id)">View</ion-button>
+    </ion-item>
+
+    <ion-card-content>
+      {{pizza.description}}
+      <h4>
+        {{pizza.name}} - {{pizza.price}}
+      </h4>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+<router-outlet></router-outlet>

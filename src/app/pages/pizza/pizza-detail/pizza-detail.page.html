@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>pizza-detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-item>
+      <ion-icon name="pin" slot="start"></ion-icon>
+      <ion-label *ngIf="sizePizza">
+        <div class="pizza-details-content">
+          <ion-card-title>
+            {{themeService.data.value.pizzaName}}({{sizePizza.name}})
+            <br>
+            Diameter: {{sizePizza.diameter}}cm, weight: {{sizePizza.weight}}gr.
+          </ion-card-title>
+        </div>
+        <div [className]="classSize">
+        <img [src]="sizeUrl+sizePizza.path">
+        </div>
+        <app-stars [averageRating]="getAverageRating()"></app-stars>
+      </ion-label>
+    </ion-item>
+    <ion-card-content *ngIf="sizePizza">
+      <ion-card-subtitle class="pizza-details-content-desc">
+        {{themeService.data.value.pizzaDescription}}
+      </ion-card-subtitle>
+      <ion-button fill="outline" (click)="onSmall()" slot="end">Small</ion-button>
+      <ion-button fill="outline" (click)="onMedium()" slot="end">Medium</ion-button>
+      <ion-button fill="outline" (click)="onLarge()" slot="end">Large</ion-button>
+      <h4>
+        {{sizePizza.diameter}} - {{sizePizza.weight}}
+      </h4>
+      <div class="pizza-details-content-ingredients">
+        <div *ngFor="let ingredient of themeService.data.value.ingredientsPizza">
+          <div *ngFor="let ing of themeService.data.value.ingredients">
+            <div *ngIf="ingredient.id === +ing">
+              <app-ingredient
+                (click)="onAddClick(ingredient.name, ingredient.price)"
+                [ingredient]="ingredient">
+              </app-ingredient>
+              <ion-buttons slot="start">
+                <ion-icon slot="start" name="mail"></ion-icon>
+                <ion-badge color="danger" style="position: absolute; right: -5px; top: -3px;">3
+                </ion-badge>
+              </ion-buttons>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ion-button fill="outline" slot="end" (click)="onPayment()">
+        Buy for {{themeService.data.value.pizzaPrice}}
+      </ion-button>
+      <ion-button fill="outline" slot="end" (click)="onComments()">
+        {{!isOpenComments ? "Show Comments" : "Hide Comments"}}
+      </ion-button>
+      <div *ngIf="isOpenPayment">
+        <app-payment [pizzaId]="pizzaId"
+                     [price]="themeService.data.value.pizzaPrice"
+                     [description]="themeService.data.value.pizzaDescription" ></app-payment>
+      </div>
+      <div *ngIf="isOpenComments">
+        <div *ngIf="!comments.length">
+          No comments yet. Be the first!
+        </div>
+        <div *ngFor="let comment of comments">
+          <app-comment [comment]="comment"></app-comment>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

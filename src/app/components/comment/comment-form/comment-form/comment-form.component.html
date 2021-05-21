@@ -1,0 +1,30 @@
+<ion-card
+  [style]="themeService.data.value.isDarkTheme ? 'background-color: black; color: white' : 'background-color: white; color: black'">
+  <form [formGroup]="comment">
+    <ng-template>Creat comment</ng-template>
+    <ion-item style="width: 100%">
+      <ion-label
+        [style]="themeService.data.value.isDarkTheme ? 'color: white' : 'color: black'">Tittle</ion-label>
+      <ion-input placeholder="Tittle"
+             [style]="themeService.data.value.isDarkTheme ? 'width: 100%;box-shadow: 0 1px 0;' :'width: 100%'"
+             [formControl]="tittle" required>
+      </ion-input>
+    </ion-item>
+    <ion-item style="width: 100%">
+      <ion-label
+        [style]="themeService.data.value.isDarkTheme ? 'color: white' : 'color: black'">
+        Comment body
+      </ion-label>
+      <ion-textarea placeholder="Comment"
+                [style]="themeService.data.value.isDarkTheme ? 'width: 300px; height: 80px;box-shadow: 0 1px 0;'
+                :'width: 300px; height: 80px'"
+                [formControl]="body" required></ion-textarea>
+    </ion-item>
+    <p *ngIf="!commentUser">
+      <ion-button (click)="onSave(comment)">save</ion-button>
+    </p>
+    <p *ngIf="commentUser">
+      <ion-button (click)="onUpdate(comment)">update</ion-button>
+    </p>
+  </form>
+</ion-card>

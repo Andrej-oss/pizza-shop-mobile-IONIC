@@ -1,0 +1,57 @@
+<ion-card
+          [style]="themeService.data.value.isDarkTheme ? 'background-color: black; color: white' : 'background-color: white; color: black'"
+          *ngIf="!isEditComment">
+  <div style="display: flex; justify-content: space-between">
+    <ion-card-header>
+      <ion-avatar class="example-header-image">
+        <p *ngIf="findUsersAvatar(comment.author.toLowerCase()) !== null">
+          <img src="{{avatarUrl + findAvatar}}"
+               style="width: 50%; border-radius: 50%">
+        </p>
+        <p *ngIf="findUsersAvatar(comment.author.toLowerCase()) !== null">
+          <ion-icon ios="ios-contact" md="md-contact"></ion-icon>
+        </p>
+      </ion-avatar>
+      <ion-card-title>{{comment.tittle}}</ion-card-title>
+      <ion-card-subtitle>{{comment.author}}</ion-card-subtitle>
+    </ion-card-header>
+    <div  *ngIf="themeService.data.value.userName === comment.author.toLowerCase()">
+<!--      <ion-button (click)="onDeleteComment(comment.id)">-->
+<!--        <ion-icon  ios="ios-trash" md="md-trash">delete</ion-icon>-->
+<!--    </ion-button>-->
+      <p>
+        <ion-button (click)="onEdit(comment.id)">edit</ion-button>
+      </p>
+    </div>
+  </div>
+  <ion-card-content>
+    <p>
+      {{comment.body}}
+    </p>
+  </ion-card-content>
+  <h6>-{{comment.date | date:'medium'}}</h6>
+  <h6 *ngIf="comment.upDated">{{comment.upDated ? "updated" : ""}}</h6>
+  <div style="display: flex; justify-content: space-between">
+    <div>
+      <ion-card>
+        <ion-button (click)="onLikeComment(comment.id)"
+                    [disabled]="isLiked || themeObjectService.data.value.userId === 0">
+          LIKE
+        </ion-button>
+      </ion-card>
+    </div>
+    <div>
+      <ion-icon ios="ios-heart" md="md-heart" (click)="onDeleteVoice(comment.id)"
+                [style]="isLiked ? 'color: red' : 'color: grey'"></ion-icon>
+<!--                [disabled]="themeObjectService.data.value.userId === 0">-->
+      <p style="margin: 50% 0% 0% 40%">{{this.voiceSum}}</p>
+    </div>
+  </div>
+</ion-card>
+<p *ngIf="!!isEditComment">
+  <app-comment-form [commentUser]="comment"
+                    [pizzaId]="pizzaId"
+                    (isOpenCommentEditor)="onCloseEditComment($event)"
+                    (updatedComment)="onEditComment($event)"></app-comment-form>
+  <ion-button (click)="onEdit(comment.id)">back</ion-button>
+</p>

@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>dessert</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let dessert of desserts">
+    <ion-item>
+      <ion-icon name="pin" slot="start"></ion-icon>
+      <ion-label><img [src]="url+dessert.path"
+                      class="pizza-card-image"
+      ></ion-label>
+      <ion-button fill="outline" slot="end">View</ion-button>
+    </ion-item>
+
+    <ion-card-content>
+      {{dessert.description}}
+      <h4>
+        {{dessert.name}} - {{dessert.price}}
+      </h4>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

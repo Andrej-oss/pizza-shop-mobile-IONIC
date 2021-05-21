@@ -1,0 +1,31 @@
+.pizza-details-content{
+  text-align: center;
+
+  &-image-small{
+    margin: 0 0 0 15%;
+    width: 60%;
+    border-radius: 50%;
+  }
+  &-image-large{
+    width: 100%;
+    border-radius: 50%;
+  }
+  &-image-medium{
+    width: 80%;
+    border-radius: 50%;
+  }
+  &-ingredients{
+    display: flex;
+    flex-direction: row;
+    margin: 5% 5% 5% 5%;
+  }
+  &-desc{
+    text-align: left;
+    text-wrap: unset;
+    height: 40px;
+  }
+}
+ion-button{
+  min-width: 20%;
+  font-size: 3vw;
+}

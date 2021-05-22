@@ -16,11 +16,13 @@ export class CommentFormComponent implements OnInit {
   @Input() commentUser: Comment;
   @Output()  updatedComment: EventEmitter<Comment> = new EventEmitter<Comment>();
   @Output() isOpenCommentEditor: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() comments: EventEmitter<Comment[]> = new EventEmitter<Comment[]>();
+  @Output() isOpenForm: EventEmitter<boolean> = new EventEmitter<boolean>();
   pizzaComment: Comment;
   comment: FormGroup;
   tittle: FormControl;
   body: FormControl = new FormControl('', [Validators.required]);
-
+  error: string;
   constructor(private pizzaService: PizzaService,
               private commentService: CommentService,
               public themeService: ThemeService) { }
@@ -36,8 +38,18 @@ export class CommentFormComponent implements OnInit {
     this.pizzaComment = {
       tittle: comment.controls.tittle.value,
       body: comment.controls.body.value,
+      voice: [],
     };
-    // this.commentService.saveComment(this.pizzaId, this.themeService.data.value.userId, this.pizzaComment);
+    this.commentService.saveComment(this.pizzaId, this.themeService.data.value.userId, this.pizzaComment)
+      .subscribe(data => {
+        this.comment.disable();
+        this.comments.emit(data);
+        this.isOpenForm.emit(false);
+        this.comment.reset();
+      }, error => {
+        this.error = error;
+        this.comment.enable();
+      });
   }
 
   onUpdate(comment: FormGroup): void{
@@ -56,8 +68,7 @@ export class CommentFormComponent implements OnInit {
           this.updatedComment.emit({...this.pizzaComment, upDated: data});
           this.isOpenCommentEditor.emit(!data);
         }
-      });
-    // this.commentService.editComment(this.commentUser.id, this.pizzaComment);
-  }
+      }, error1 => this.error = error1);
+ }
 
 }

@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>cart-page</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="cartElements.length"
+       [style]="themeService.data.value.isDarkTheme ? 'background-color: black; color: white' : 'background-color: white; color: black'">
+    <!--    <mat-horizontal-stepper-->
+    <!--      [style]="themeObjectService.data.value.isDarkTheme ? 'background-color: black; color: white' : 'background-color: white; color: black'"-->
+    <!--      (animationDone)="onPayment()">-->
+    <!--      <mat-step label="Cart" state="cart" (click)="onPayment()">-->
+    <div class="pizza-cart-page"
+         *ngIf="isOpenCart"
+         [style]="themeService.data.value.isDarkTheme ? 'background-color: black; color: white' : 'background-color: white; color: black'">
+      <h2>
+        Cart
+      </h2>
+      <app-cart-card [pizzas]="pizzas"
+                     [drinks]="drinks"
+                     [snacks]="snacks"
+                     [desserts]="desserts"
+                     [cartElements]="cartElements">
+
+      </app-cart-card>
+      <div>
+        <ion-back-button (click)="onAddressOpen()">Next</ion-back-button>
+      </div>
+    </div>
+    <!--      </mat-step>-->
+    <ion-card>
+      <div class="pizza-cart-page-payment-content-user"
+           *ngIf="isOpenAddressStep"
+           [style]="themeService.data.value.isDarkTheme ? 'background-color: black; color: white' : 'background-color: white; color: black'">
+        <div class="pizza-cart-page-payment-content-user-name">
+          Dear customer, {{principal.name }} {{principal.lastName}}, please check and
+          confirm your data for delivery or change if data is wrong.
+        </div>
+        <br>
+        <h2>Address for delivery:</h2>
+        <p>Post code: {{principal.postCode + '\n'}}</p>
+        <p>City: {{principal.city + '\n'}}</p>
+        <p>Street: {{principal.address + '\n'}}</p>
+        <br/>
+        <div class="pizza-cart-page-payment-content-user-address">
+          We will send you email on {{principal.email}} and call you
+          on your phone number {{principal.phone}} when your order delivered.
+        </div>
+      </div>
+      <div>
+        <ion-back-button (click)="backToCart()">Back</ion-back-button>
+        <ion-button (click)="onOpenPayment()">Next</ion-button>
+      </div>
+    </ion-card>
+    <div *ngIf="isOpenPayment">
+      <ion-card>
+        <p>{{principal.name }} {{principal.lastName}}
+          , input your name and number your card, data and CVC code.
+        </p>
+        <div class="pizza-cart-page-payment-payment" *ngIf="themeService.data.value.isOpenPayment">
+          <app-payment [price]="themeService.data.value.totalPrice"
+                       [allCart]="cartElements"
+                       [description]="cartElements | json"
+                       [tittle]="'all elements in cart'"></app-payment>
+        </div>
+        <!--      </mat-step>-->
+        <!--    </mat-horizontal-stepper>-->
+      </ion-card>
+    </div>
+    <div *ngIf="!cartElements.length">
+      <h1>
+        Your cart is empty. Please add pizza to cart.
+      </h1>
+    </div>
+  </div>
+</ion-content>
+
+<router-outlet></router-outlet>

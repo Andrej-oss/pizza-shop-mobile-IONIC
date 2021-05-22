@@ -15,17 +15,20 @@ import {CommentComponent} from '../../../components/comment/comment-card/comment
 import {CommentFormComponent} from '../../../components/comment/comment-form/comment-form/comment-form.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    PizzaDetailPageRoutingModule,
-    ReactiveFormsModule
-  ],
-  declarations: [PizzaDetailPage,
-    IngredientComponent,
-    StarsComponent,
-    PaymentComponent,
-    PaymentModalComponent, CommentComponent, CommentFormComponent]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        PizzaDetailPageRoutingModule,
+        ReactiveFormsModule
+    ],
+    exports: [
+        PaymentComponent
+    ],
+    declarations: [PizzaDetailPage,
+        IngredientComponent,
+        StarsComponent,
+        PaymentComponent,
+        PaymentModalComponent, CommentComponent, CommentFormComponent]
 })
 export class PizzaDetailPageModule {}

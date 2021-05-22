@@ -1,6 +1,6 @@
 <ion-card
-          [style]="themeService.data.value.isDarkTheme ? 'background-color: black; color: white' : 'background-color: white; color: black'"
-          *ngIf="!isEditComment">
+  [style]="themeService.data.value.isDarkTheme ? 'background-color: black; color: white' : 'background-color: white; color: black'"
+  *ngIf="!isEditComment">
   <div style="display: flex; justify-content: space-between">
     <ion-card-header>
       <ion-avatar class="example-header-image">
@@ -15,10 +15,10 @@
       <ion-card-title>{{comment.tittle}}</ion-card-title>
       <ion-card-subtitle>{{comment.author}}</ion-card-subtitle>
     </ion-card-header>
-    <div  *ngIf="themeService.data.value.userName === comment.author.toLowerCase()">
-<!--      <ion-button (click)="onDeleteComment(comment.id)">-->
-<!--        <ion-icon  ios="ios-trash" md="md-trash">delete</ion-icon>-->
-<!--    </ion-button>-->
+    <div *ngIf="themeService.data.value.userName === comment.author.toLowerCase()">
+      <ion-button (click)="onDeleteComment(comment.id)">
+        delete
+      </ion-button>
       <p>
         <ion-button (click)="onEdit(comment.id)">edit</ion-button>
       </p>
@@ -43,7 +43,8 @@
     <div>
       <ion-icon ios="ios-heart" md="md-heart" (click)="onDeleteVoice(comment.id)"
                 [style]="isLiked ? 'color: red' : 'color: grey'"></ion-icon>
-<!--                [disabled]="themeObjectService.data.value.userId === 0">-->
+      <ion-icon ios="ios-heart" md="md-heart"></ion-icon>
+      <!--                [disabled]="themeObjectService.data.value.userId === 0">-->
       <p style="margin: 50% 0% 0% 40%">{{this.voiceSum}}</p>
     </div>
   </div>

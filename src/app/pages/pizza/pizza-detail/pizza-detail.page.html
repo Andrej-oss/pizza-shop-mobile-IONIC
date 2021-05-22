@@ -52,6 +52,9 @@
       <ion-button fill="outline" slot="end" (click)="onPayment()">
         Buy for {{themeService.data.value.pizzaPrice}}
       </ion-button>
+      <ion-button fill="outline" slot="end" (click)="savePizzaInCart(pizzaId)">
+        Add to cart {{themeService.data.value.pizzaPrice}}
+      </ion-button>
       <ion-button fill="outline" slot="end" (click)="onComments()">
         {{!isOpenComments ? "Show Comments" : "Hide Comments"}}
       </ion-button>
@@ -65,7 +68,15 @@
           No comments yet. Be the first!
         </div>
         <div *ngFor="let comment of comments">
-          <app-comment [comment]="comment"></app-comment>
+          <app-comment (commentId)="deleteCommentById($event)"
+            [comment]="comment"></app-comment>
+        </div>
+        <ion-button (click)="onOpenCommentForm()">{{!isOpenCommentForm ? "Write comment" : "Hide form"}}</ion-button>
+        <div *ngIf="!!isOpenCommentForm">
+          <app-comment-form
+            [pizzaId]="pizzaId"
+            (isOpenForm)="isOpenCommentsForm($event)"
+            (comments)="newComments($event)"></app-comment-form>
         </div>
       </div>
     </ion-card-content>

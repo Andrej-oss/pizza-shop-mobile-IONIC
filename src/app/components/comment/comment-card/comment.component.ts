@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Avatar} from '../../../models/Avatar';
 import {Voice} from '../../../models/Voice';
@@ -21,14 +21,14 @@ export class CommentComponent implements OnInit {
   @Input()
   pizzaId;
   @Output()
-  comments: Comment[];
+  commentId: EventEmitter<number> = new EventEmitter<number>();
   avatars: Avatar[];
   findAvatar: string;
   isEditComment: boolean;
   voice: Voice;
   isLiked: boolean;
   voiceSum: number;
-  voiceId: number;
+  error: string;
   avatarUrl = 'http://localhost:8080/avatar/image/';
 
   constructor(private pizzaService: PizzaService,
@@ -47,8 +47,9 @@ export class CommentComponent implements OnInit {
 
   onDeleteComment(id: number): void {
     this.isEditComment = false;
-    this.commentService.deleteComment(id).subscribe(data => console.log(data));
-    this.commentService.deleteComment(id).subscribe(data => this.comments);
+    this.commentService.deleteComment(id).subscribe(data => {
+        this.commentId.emit(id);
+    }, error => this.error = error);
     // this.themeObjectService.data.value.message = `your comment was deleted`;
   }
 
@@ -81,7 +82,6 @@ export class CommentComponent implements OnInit {
   }
 
   onDeleteVoice(id: number): void {
-    debugger;
     const voice = this.comment.voice.find(value => {
       return value.userId === this.themeObjectService.data.value.userId;
     });

@@ -88,6 +88,7 @@ export class UserAuthPage implements OnInit, OnDestroy {
           this.router.navigate(['/']);
           this.themeService.data.value.userId = data.id;
           this.themeService.data.value.userName = data.username;
+          this.themeService.data.value.principle = data;
           this.avatarService.getAvatar(data.id)
             .subscribe(avatar => this.themeService.data.value.avatar = avatar);
         },

@@ -10,6 +10,8 @@ data: BehaviorSubject<Theme> = new BehaviorSubject<Theme>({
   userId: 0,
   userName: '',
   avatar: null,
+  principle: null,
+  isOpenPayment: false,
   editedComment: null,
   isDarkTheme: false,
   ingredients: [],
@@ -19,6 +21,7 @@ data: BehaviorSubject<Theme> = new BehaviorSubject<Theme>({
   pizzaPrice: 0,
   pizzaRating: [],
   comments: [],
+  totalPrice: 0,
 });
   constructor() { }
 }

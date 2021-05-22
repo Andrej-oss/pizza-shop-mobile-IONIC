@@ -9,6 +9,8 @@ import {CommentService} from '../../../services/commentDao/comment.service';
 import {Comment} from '../../../models/Comment';
 import {Rating} from '../../../models/Rating';
 import {RatingService} from '../../../services/ratingDao/rating.service';
+import {Cart} from '../../../models/Cart';
+import {CartService} from '../../../services/cartDao/cart.service';
 
 @Component({
   selector: 'app-pizza-detail',
@@ -20,13 +22,16 @@ export class PizzaDetailPage implements OnInit {
   sizeUrl = 'http://localhost:8080/size/image/';
   sizePizza: Size;
   pizzaDescription: string;
+  cart: Cart;
   classSize: string;
   isOpenPayment: boolean;
   comments: Comment[];
   isOpenComments: boolean;
   pizzaRating: Rating[];
   averageRating: number;
+  isOpenCommentForm: boolean;
   constructor(private sizeService: SizeService,
+              private cartService: CartService,
               private ingredientService: IngredientService,
               public themeService: ThemeService,
               private ratingService: RatingService,
@@ -111,5 +116,35 @@ export class PizzaDetailPage implements OnInit {
       this.averageRating = this.pizzaRating.reduce((previousValue, currentValue) => previousValue + currentValue.value, 0);
       return this.averageRating = Math.round(this.averageRating / this.pizzaRating.length);
     }
+  }
+
+  onOpenCommentForm(): void{
+    this.isOpenCommentForm = !this.isOpenCommentForm;
+  }
+
+  newComments(comments1: Comment[]) {
+    this.comments = comments1;
+  }
+
+  isOpenCommentsForm($event: boolean) {
+    this.isOpenCommentForm = $event;
+  }
+
+  deleteCommentById($event: number) {
+    const index = this.comments.findIndex(value => value.id === $event);
+    this.comments.splice(index, 1);
+  }
+
+  savePizzaInCart(id: number): void {
+    this.cart = {
+      description: this.themeService.data.value.pizzaDescription,
+      pizzaId: id,
+      amount: 1,
+      price: this.themeService.data.value.pizzaPrice,
+      volume: this.sizePizza.weight,
+      userId: this.themeService.data.value.userId,
+      size: this.sizePizza.size,
+    };
+    this.cartService.savePizzaInCart(this.cart).subscribe(data => console.log(data));
   }
 }

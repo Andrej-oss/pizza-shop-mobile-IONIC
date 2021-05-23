@@ -22,6 +22,7 @@ data: BehaviorSubject<Theme> = new BehaviorSubject<Theme>({
   pizzaRating: [],
   comments: [],
   totalPrice: 0,
+  cartElements: 0,
 });
   constructor() { }
 }

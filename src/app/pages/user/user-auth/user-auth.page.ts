@@ -82,8 +82,10 @@ export class UserAuthPage implements OnInit, OnDestroy {
            this.userService.getUserByName(data1.username);
            return this.userService.getUserByName(data1.username);
         }),
-        tap(data2 => this.cartService.getAllCartsElements(data2.id)))
-      .subscribe((data) => {
+        tap(data2 => this.cartService.getAllCartsElements(data2.id)
+          // tslint:disable-next-line:no-shadowed-variable
+          .subscribe(data2 => this.themeService.data.value.cartElements = data2.length)))
+          .subscribe((data) => {
           this.error = null;
           this.router.navigate(['/']);
           this.themeService.data.value.userId = data.id;

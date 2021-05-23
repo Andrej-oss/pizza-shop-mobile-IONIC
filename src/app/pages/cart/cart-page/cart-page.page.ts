@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Output} from '@angular/core';
 import {Pizza} from '../../../models/Pizza';
 import {Cart} from '../../../models/Cart';
 import {Drink} from '../../../models/Drink';
@@ -23,9 +23,9 @@ export class CartPagePage implements OnInit {
   drinks: Drink[];
   snacks: Snack[];
   desserts: Dessert[];
-  isOpenCart: boolean;
-  isOpenAddressStep: boolean;
-  isOpenPayment: boolean;
+  isOpenCart = false;
+  isOpenAddressStep = false;
+  isOpenPayment = false;
   constructor(private snackService: SnackService,
               private pizzaService: PizzaService,
               private dessertService: DessertService,
@@ -33,6 +33,7 @@ export class CartPagePage implements OnInit {
               public themeService: ThemeService) { }
 
   ngOnInit(): void {
+    debugger;
     this.themeService.data.value.isOpenPayment = false;
     this.isOpenCart = true;
     this.cartService.getAllCartsElements(this.themeService.data.value.userId)
@@ -49,18 +50,29 @@ export class CartPagePage implements OnInit {
   onAddressOpen(): void{
     this.isOpenPayment = false;
     this.isOpenCart = false;
-    this.isOpenAddressStep =  !this.isOpenAddressStep;
+    this.isOpenAddressStep =  true;
   }
 
   backToCart(): void{
     this.isOpenPayment = false;
-    this.isOpenCart = !this.isOpenCart;
+    this.isOpenCart = true;
     this.isOpenAddressStep =  false;
   }
 
   onOpenPayment() {
-    this.isOpenPayment = !this.isOpenPayment;
+    this.isOpenPayment = true;
     this.isOpenCart = false;
     this.isOpenAddressStep =  false;
+  }
+
+  backToAddressStep() {
+    this.isOpenPayment = false;
+    this.isOpenCart = false;
+    this.isOpenAddressStep =  true;
+  }
+
+  onDeleteCartItem(id: number) {
+    const index = this.cartElements.findIndex(value => value.id === id);
+    this.cartElements.splice(index, 1);
   }
 }

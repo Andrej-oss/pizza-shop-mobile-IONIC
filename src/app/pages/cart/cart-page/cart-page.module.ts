@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { CartPagePageRoutingModule } from './cart-page-routing.module';
-
 import { CartPagePage } from './cart-page.page';
-import {CartCardPageModule} from '../cart-card/cart-card.module';
 import {PizzaDetailPageModule} from '../../pizza/pizza-detail/pizza-detail.module';
+import {CartCardItemComponent} from '../cart-card-item/cart-card-item.component';
+import {PaymentComponent} from '../../../components/payment-stripe/payment/payment.component';
+import {CartCardComponent} from '../cart-card/cart-card.component';
+import { CartPagePageRoutingModule } from './cart-page-routing.module';
 
 @NgModule({
   imports: [
@@ -16,9 +17,7 @@ import {PizzaDetailPageModule} from '../../pizza/pizza-detail/pizza-detail.modul
     FormsModule,
     IonicModule,
     CartPagePageRoutingModule,
-    CartCardPageModule,
-    PizzaDetailPageModule
   ],
-  declarations: [CartPagePage]
+  declarations: [CartPagePage, CartCardItemComponent, CartCardComponent, PaymentComponent]
 })
 export class CartPagePageModule {}

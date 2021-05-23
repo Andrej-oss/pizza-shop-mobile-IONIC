@@ -9,6 +9,8 @@ import {NgxStripeModule} from 'ngx-stripe';
 import {ToastrModule} from 'ngx-toastr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserAvatarPipe } from './pipes/user-avatar.pipe';
+import {CartCardComponent} from './pages/cart/cart-card/cart-card.component';
+import {CartCardItemComponent} from './pages/cart/cart-card-item/cart-card-item.component';
 
 @NgModule({
   declarations: [AppComponent, UserAvatarPipe],
@@ -22,7 +24,9 @@ import { UserAvatarPipe } from './pipes/user-avatar.pipe';
     ToastrModule.forRoot(),
     AppRoutingModule,
     NgbModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [{provide: RouteReuseStrategy, useClass: IonicRouteStrategy}],
   bootstrap: [AppComponent],
+  exports: [
+  ]
 })
 export class AppModule {}

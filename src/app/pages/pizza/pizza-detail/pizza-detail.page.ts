@@ -146,5 +146,6 @@ export class PizzaDetailPage implements OnInit {
       size: this.sizePizza.size,
     };
     this.cartService.savePizzaInCart(this.cart).subscribe(data => console.log(data));
+    this.themeService.data.value.cartElements += 1;
   }
 }

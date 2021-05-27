@@ -1,0 +1,42 @@
+<ion-card *ngIf="!!user">
+  <ion-avatar>
+    <div *ngIf="!themeService.data.value.avatar">
+      <img src="../../../assets/icon/user-icon.jpg">
+    </div>
+    <div *ngIf="themeService.data.value.avatar.path">
+      <img src="{{avatarUrl + themeService.data.value.avatar.path}}">
+    </div>
+    <a class="user-card-avatar-buttons">
+      <a *ngIf="isAvatarOpen">
+        <input type="file" (change)="uploadFile($event)" accept=".jpg">
+        <ion-button (click)="onSaveAvatar(user.id)">
+          save avatar
+        </ion-button>
+      </a>
+      <ion-button (click)="onOpenAvatarChange()">{{isAvatarOpen ? "hide" : "change avatar"}}</ion-button>
+    </a>
+  </ion-avatar>
+  <ion-card-title>
+    <h2>
+      {{user.username}}
+    </h2>
+    <h3>
+      {{user.name + ' ' + user.lastName}}
+    </h3>
+    <p>
+      {{user.email}}
+    </p>
+  </ion-card-title>
+  <ion-card-content>
+    City: {{user.city}}
+    <p>
+      Address: {{user.address}}
+    </p>
+    <p>
+      Postcode: {{user.postCode}}
+    </p>
+    <p>
+      Phone: {{user.phone}}
+    </p>
+  </ion-card-content>
+</ion-card>

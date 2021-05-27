@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>user-page</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="user-card-menu">
+    <div class="example-sidenav">
+      <p *ngIf="user">
+        {{user.username}}
+      </p>
+      <div *ngIf="isUserInfoOpen">
+        <app-user-card></app-user-card>
+      </div>
+      <ion-button (click)="onUserUpdate()">
+        Administrating Profile
+      </ion-button>
+      <ion-button (click)="onBasket()">
+        Cart
+      </ion-button>
+      <ion-button (click)="onPurchase()">
+        Purchases
+      </ion-button>
+    </div>
+    <div class="example-sidenav-content">
+      <div *ngIf="isPurchasesOpen">
+        <app-purchase-item [pizzas]="pizzas"
+                           [desserts]="desserts"
+                           [drinks]="drinks"
+                           [purchasesUser]="purchases"
+                           [snacks]="snacks">
+        </app-purchase-item>
+      </div>
+    </div>
+  </div>
+
+</ion-content>

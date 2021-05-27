@@ -11,6 +11,7 @@ import {PizzaService} from '../../../services/pizzaDao/pizza.service';
 import {CartService} from '../../../services/cartDao/cart.service';
 import {ThemeService} from '../../../../theme/behaviour-subject/theme.service';
 import {AvatarService} from '../../../services/avatarDao/avatar.service';
+import {ToasterServiceService} from '../../../services/toaster/toaster-service.service';
 
 @Component({
   selector: 'app-user-auth',
@@ -37,6 +38,7 @@ export class UserAuthPage implements OnInit, OnDestroy {
               private router: Router,
               private pizzaService: PizzaService,
               private avatarService: AvatarService,
+              private toaster: ToasterServiceService,
               private cartService: CartService,
               private activatedRoute: ActivatedRoute,
               public themeService: ThemeService) {
@@ -55,19 +57,20 @@ export class UserAuthPage implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe((params) => {
       if (params.accessDenied) {
-        console.log(params);
         this.error = 'Please log in to Pizza shop first';
       }
-      console.log(params);
     });
     this.formCheck();
+    if (this.themeService.data.value.userId !== 0) {
+      this.authForm.enable();
+    }
   }
   getAuthenticateUser(user: {username: string, password: string}): any{
     return new Promise(resolve => {
-      console.log(user);
       return this.userService.authenticateUser(user).subscribe(data => resolve(data));
     });
   }
+
   getPrincipal(name: string): any{
     return new Promise(resolve => {
       return this.userService.getUserByName(name).subscribe(data => resolve(data));
@@ -91,6 +94,8 @@ export class UserAuthPage implements OnInit, OnDestroy {
           this.themeService.data.value.userId = data.id;
           this.themeService.data.value.userName = data.username;
           this.themeService.data.value.principle = data;
+          this.themeService.data.value.message = 'Authentication success';
+          this.toaster.presentToast();
           this.avatarService.getAvatar(data.id)
             .subscribe(avatar => this.themeService.data.value.avatar = avatar);
         },
@@ -104,7 +109,7 @@ export class UserAuthPage implements OnInit, OnDestroy {
   }
 
   isAdmin(): boolean {
-    return this.authority === 'ADMIN' ? true : false;
+    return this.authority === 'ADMIN';
   }
 
   formCheck(): void {
@@ -116,7 +121,7 @@ export class UserAuthPage implements OnInit, OnDestroy {
   }
 
   onRegistration(): void {
-    this.router.navigateByUrl('/registration');
+    this.router.navigateByUrl('user-registration');
   }
 
   onReminder(): void{

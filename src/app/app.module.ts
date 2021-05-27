@@ -9,11 +9,11 @@ import {NgxStripeModule} from 'ngx-stripe';
 import {ToastrModule} from 'ngx-toastr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserAvatarPipe } from './pipes/user-avatar.pipe';
-import {CartCardComponent} from './pages/cart/cart-card/cart-card.component';
-import {CartCardItemComponent} from './pages/cart/cart-card-item/cart-card-item.component';
+import {UserAuthPage} from './pages/user/user-auth/user-auth.page';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
-  declarations: [AppComponent, UserAvatarPipe],
+  declarations: [AppComponent, UserAvatarPipe, UserAuthPage],
   entryComponents: [],
   imports: [BrowserModule,
     IonicModule.forRoot(),
@@ -23,10 +23,10 @@ import {CartCardItemComponent} from './pages/cart/cart-card-item/cart-card-item.
     NgbModule,
     ToastrModule.forRoot(),
     AppRoutingModule,
-    NgbModule],
+    NgbModule, ReactiveFormsModule],
   providers: [{provide: RouteReuseStrategy, useClass: IonicRouteStrategy}],
   bootstrap: [AppComponent],
-  exports: [
-  ]
+    exports: [
+    ]
 })
 export class AppModule {}

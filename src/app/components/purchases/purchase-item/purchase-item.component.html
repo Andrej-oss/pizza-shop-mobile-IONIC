@@ -1,0 +1,84 @@
+<div class="purchase-item-table">
+  <table
+         [style]="this.themeService.data.value.isDarkTheme ? black : white">
+      <tr>
+      <th *ngFor="let row of displayedColumns"
+        [style]="this.themeService.data.value.isDarkTheme ? blackColor : whiteColor">
+        {{row}}
+      </th>
+      </tr>
+<!--      <tr>-->
+<!--        <td *ngFor=""-->
+<!--            [style]="this.themeService.data.value.isDarkTheme  ? blackColor : whiteColor"> {{i + 1}}-->
+<!--        </td>-->
+<!--      </tr>-->
+<!--    <div *ngFor="let element of purchasesUser; let i = index">-->
+      <tr *ngFor="let element of purchasesUser; let i = index">
+        <th>
+        <app-purchase-item-card [pizzaId]="element.pizzaId"
+                                [dessertId]="element.dessertId"
+                                [drinkId]="element.drinkId"
+                                [snackId]="element.snackId"
+                                [snacks]="snacks"
+                                [desserts]="desserts"
+                                [drinks]="drinks"
+                                [pizzas]="pizzas">
+        </app-purchase-item-card>
+        </th>
+        <th [style]="this.themeService.data.value.isDarkTheme  ? blackColor : whiteColor">
+          {{element.description}}
+        </th>
+        <th [style]="this.themeService.data.value.isDarkTheme  ? blackColor : whiteColor">
+          <p *ngIf="element.pizzaId !== 0">
+            {{element.name}}
+          </p>
+          <p *ngIf="element.drinkId !== 0">
+            {{(element.drinkId | volumeDrink: drinks) + ' l'}}
+          </p>
+          <p *ngIf="element.dessertId !== 0">
+            {{findDessertVolume(element.dessertId)}}
+          </p>
+          <p *ngIf="element.snackId !== 0">
+            {{findSnackVolume(element.snackId)}}
+          </p>
+        </th>
+        <th [style]="this.themeService.data.value.isDarkTheme  ? blackColor : whiteColor">
+          {{element.amount}}
+        </th>
+        <th [style]="this.themeService.data.value.isDarkTheme  ? blackColor : whiteColor">
+          {{element.price}}
+        </th>
+        <th [style]="this.themeService.data.value.isDarkTheme  ? blackColor : whiteColor">
+          {{element.date | date:'medium'}}
+        </th>
+        <th [style]="this.themeService.data.value.isDarkTheme  ? blackColor : whiteColor">
+          <div>
+            <div class="purchase-item-table-delete">
+              <button (click)="onDelete(element.id)">
+                delete
+              </button>
+            </div>
+
+            <div class="purchases-add-cart" *ngIf="isUser">
+              <!--          <ion-button class="material-icons"-->
+              <!--                style="margin-left: 70%"-->
+              <!--                (click)="saveInCart(element.pizzaId,-->
+              <!--                 element.drinkId,-->
+              <!--                 element.dessertId,-->
+              <!--                 element.description,-->
+              <!--                  element.name,-->
+              <!--                   element.amount,-->
+              <!--                   element.price,-->
+              <!--                   element.volume)">-->
+              <!--&lt;!&ndash;            changed up element.value&ndash;&gt;-->
+              <!--              add_shopping_cart-->
+              <!--          </ion-button>-->
+            </div>
+          </div>
+        </th>
+      </tr>
+<!--    </div>-->
+  </table>
+<!--   <app-pagination [source]="source"></app-pagination>-->
+</div>
+

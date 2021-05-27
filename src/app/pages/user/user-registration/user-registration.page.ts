@@ -12,7 +12,6 @@ import {User} from '../../../models/User';
   styleUrls: ['./user-registration.page.scss'],
 })
 export class UserRegistrationPage implements OnInit {
-  @Input()
   user: User;
   hide = true;
   firstFormGroup: FormGroup;
@@ -29,6 +28,9 @@ export class UserRegistrationPage implements OnInit {
   phone: FormControl;
   postCode: FormControl;
   private message: Params;
+  isOpenPasswordStep = true;
+  isOpenAddressStep: boolean;
+  isFinalStep: boolean;
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
@@ -38,6 +40,7 @@ export class UserRegistrationPage implements OnInit {
   }
 
   ngOnInit(): void {
+    this.user = this.themeService.data.value.principle;
     this.firstFormGroup = new FormGroup({
       login: this.login = new FormControl(this.user ? `${this.user.username}` : '',
         [Validators.maxLength(30), Validators.required]),
@@ -151,4 +154,23 @@ export class UserRegistrationPage implements OnInit {
   selectChange($event: number) {
     console.log($event);
   }
+
+  onPrevious(): void{
+    this.isOpenPasswordStep = true;
+    this.isOpenAddressStep = false;
+    this.isFinalStep = false;
+  }
+
+  onNext(): void{
+    this.isOpenPasswordStep = false;
+    this.isOpenAddressStep = true;
+    this.isFinalStep = false;
+  }
+
+  onFinalStep() {
+    this.isOpenPasswordStep = false;
+    this.isOpenAddressStep = false;
+    this.isFinalStep = true;
+  }
+
 }

@@ -4,6 +4,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {PizzaService} from '../../../../services/pizzaDao/pizza.service';
 import {CommentService} from '../../../../services/commentDao/comment.service';
 import {ThemeService} from '../../../../../theme/behaviour-subject/theme.service';
+import {ToasterServiceService} from '../../../../services/toaster/toaster-service.service';
 
 @Component({
   selector: 'app-comment-form',
@@ -25,6 +26,7 @@ export class CommentFormComponent implements OnInit {
   error: string;
   constructor(private pizzaService: PizzaService,
               private commentService: CommentService,
+              private toaster: ToasterServiceService,
               public themeService: ThemeService) { }
 
   ngOnInit(): void {
@@ -46,6 +48,8 @@ export class CommentFormComponent implements OnInit {
         this.comments.emit(data);
         this.isOpenForm.emit(false);
         this.comment.reset();
+        this.themeService.data.value.message = 'Your comment saved';
+        this.toaster.presentToast();
       }, error => {
         this.error = error;
         this.comment.enable();
@@ -54,6 +58,7 @@ export class CommentFormComponent implements OnInit {
 
   onUpdate(comment: FormGroup): void{
     this.pizzaComment = {
+      id: this.commentUser.id,
       author: this.commentUser.author,
       tittle: comment.controls.tittle.value,
       body: comment.controls.body.value,
@@ -67,6 +72,8 @@ export class CommentFormComponent implements OnInit {
         if (!!data){
           this.updatedComment.emit({...this.pizzaComment, upDated: data});
           this.isOpenCommentEditor.emit(!data);
+          this.themeService.data.value.message = 'Your comment was updated';
+          this.toaster.presentToast();
         }
       }, error1 => this.error = error1);
  }

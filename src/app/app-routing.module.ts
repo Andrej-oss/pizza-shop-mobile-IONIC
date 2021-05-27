@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import {UserPageGuardGuard} from './components/guards/user-page-guard/user-page-guard.guard';
 
 const routes: Routes = [
   {
@@ -47,6 +48,10 @@ const routes: Routes = [
   {
     path: 'cart-page',
     loadChildren: () => import('./pages/cart/cart-page/cart-page.module').then( m => m.CartPagePageModule)
+  },
+  {
+    path: 'user-page',
+    loadChildren: () => import('./pages/user/user-page/user-page.module').then( m => m.UserPagePageModule), canActivate: [UserPageGuardGuard]
   },
 ];
 

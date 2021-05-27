@@ -9,13 +9,16 @@ import { UserRegistrationPageRoutingModule } from './user-registration-routing.m
 import { UserRegistrationPage } from './user-registration.page';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    UserRegistrationPageRoutingModule,
-    ReactiveFormsModule
-  ],
-  declarations: [UserRegistrationPage]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        UserRegistrationPageRoutingModule,
+        ReactiveFormsModule
+    ],
+    exports: [
+        UserRegistrationPage
+    ],
+    declarations: [UserRegistrationPage]
 })
 export class UserRegistrationPageModule {}

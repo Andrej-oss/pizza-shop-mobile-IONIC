@@ -5,6 +5,7 @@ import {tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {User} from '../../models/User';
 import {AuthUser} from '../../models/AuthUser';
+import {ThemeService} from '../../../theme/behaviour-subject/theme.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class UserService {
   private baseUrl = 'http://localhost:8080/user';
 
   constructor(private httpClient: HttpClient,
-              // private themeObjectService: ThemeObjectService,
+              private themeService: ThemeService,
               private router: Router) { }
   getUserByName(name: string): Observable<User>{
     return this.httpClient.get<User>(this.baseUrl + '/authenticate/' + name);
@@ -67,9 +68,10 @@ export class UserService {
     this.token = null;
     localStorage.removeItem('token');
     this.authority = null;
-    // this.themeObjectService.data.value.userId = 0;
-    // this.themeObjectService.data.value.sizeCart = 0;
-    // this.themeObjectService.data.value.userName = '';
+    this.themeService.data.value.userId = 0;
+    this.themeService.data.value.cartElements = 0;
+    this.themeService.data.value.userName = '';
+    this.themeService.data.value.avatar = null;
     this.router.navigate(['/']).then(data => console.log(data));
   }
   setAuthority(role: string): void{

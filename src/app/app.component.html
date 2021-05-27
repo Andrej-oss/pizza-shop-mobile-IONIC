@@ -3,7 +3,16 @@
     <ion-menu contentId="main-content" type="overlay">
       <ion-content>
         <ion-list id="inbox-list">
-          <ion-list-header>Inbox</ion-list-header>
+          <ion-list-header>
+            <ion-toggle color="dark" (click)="onDarkTheme()"></ion-toggle>
+            <ion-avatar *ngIf="!!this.themeService.data.value.avatar">
+              <div (click)="onUserPage()">
+              <img src="{{avatarUrl + this.themeService.data.value.avatar.path}}"
+                   style="width: 50%; border-radius: 50%">
+              </div>
+            </ion-avatar>
+            Pizza Shop
+          </ion-list-header>
 
           <ion-menu-toggle auto-hide="false">
             <ion-item routerDirection="root" [routerLink]="['pizza']" lines="none" detail="false" routerLinkActive="selected">
@@ -11,7 +20,7 @@
               <ion-label>Pizza</ion-label>
             </ion-item>
             <ion-item routerDirection="root" [routerLink]="['snack']" lines="none" detail="false" routerLinkActive="selected">
-              <ion-icon slot="start" [ios]="'pizza'" [md]="'pizza'"></ion-icon>
+              <ion-icon slot="start" name="fast-food-outline"></ion-icon>
               <ion-label>Snacks</ion-label>
             </ion-item>
             <ion-item routerDirection="root" [routerLink]="['dessert']" lines="none" detail="false" routerLinkActive="selected">
@@ -22,22 +31,30 @@
               <ion-icon slot="start" [ios]="'pint'" [md]="'pint'"></ion-icon>
               <ion-label>Drinks</ion-label>
             </ion-item>
+            <div *ngIf="themeService.data.value.userId === 0">
             <ion-item routerDirection="root" [routerLink]="['user-auth']" lines="none" detail="false" routerLinkActive="selected">
 <!--              <ion-icon slot="start" [ios]="'pint'" [md]="'pint'"></ion-icon>-->
               <ion-label>Sing in</ion-label>
             </ion-item>
+            </div>
+            <div *ngIf="themeService.data.value.userId !== 0">
+              <ion-item (click)="onLogOut()" routerDirection="root" [routerLink]="['/']" lines="none" detail="false" routerLinkActive="selected">
+                <!--              <ion-icon slot="start" [ios]="'pint'" [md]="'pint'"></ion-icon>-->
+                <ion-label>Sing out</ion-label>
+              </ion-item>
+            </div>
             <ion-item routerDirection="root" [routerLink]="['user-registration']" lines="none" detail="false" routerLinkActive="selected">
               <!--              <ion-icon slot="start" [ios]="'pint'" [md]="'pint'"></ion-icon>-->
               <ion-label>Sign up</ion-label>
             </ion-item>
             <ion-item routerDirection="root" [routerLink]="['cart-page']" lines="none" detail="false" routerLinkActive="selected">
-              <ion-icon name="cart-outline"><ion-badge color="danger" slot="end">88</ion-badge></ion-icon>
               <ion-label>Cart</ion-label>
-              <ion-badge color="danger">{{this.themeService.data.value.cartElements}}</ion-badge>
+              <ion-badge color="{{themeService.data.value.cartElements !== 0 ? 'danger' : 'medium'}}">
+                {{this.themeService.data.value.cartElements}}
+              </ion-badge>
             </ion-item>
           </ion-menu-toggle>
         </ion-list>
-
       </ion-content>
     </ion-menu>
     <ion-router-outlet id="main-content"></ion-router-outlet>

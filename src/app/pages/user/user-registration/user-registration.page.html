@@ -4,12 +4,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-<!--  <ion-stepper-->
-<!--    [style]="themeService.data.value.isDarkTheme ? 'background-color: black; color: white' : 'background-color: white; color: black'"-->
-<!--    #stepper (selectIndexChange)="selectChange($event)">-->
-<!--    <ion-step label="Step1"-->
-<!--              description="Step1 description">-->
+<ion-content class="user-registration">
+  <div *ngIf="isOpenPasswordStep" class="user-registration-content">
       <form [formGroup]="firstFormGroup" [style]="themeService.data.value.isDarkTheme ? 'background-color: black; color: white' : 'background-color: white; color: black'">
         <ng-template style="color: white;">Fill out your name</ng-template>
         <ion-item style="width: 100%">
@@ -44,13 +40,10 @@
         <div *ngIf="firstFormGroup.hasError('passwordLengthError')">
           Password should have min 10 symbols length
         </div>
-        <div>
-          <button ion-button small ionicStepperNext>Next</button>
-        </div>
       </form>
-<!--    </ion-step>-->
-<!--    <ion-step label="Step2 - Step2 - Step2"-->
-<!--              description="Step1 description">-->
+    <ion-button (click)="onNext()" [disabled]="firstFormGroup.invalid">next</ion-button>
+  </div>
+  <div *ngIf="isOpenAddressStep" class="user-registration-content">
       <form [formGroup]="secondFormGroup">
         <ng-template>Fill out your address</ng-template>
         <ion-item style="width: 100%">
@@ -124,16 +117,16 @@
         </ion-item>
         <div *ngIf="secondFormGroup.hasError('phoneError')">Enter a numbers</div>
         <div>
-          <button ion-button color="light" small ionicStepperPrevious>Previous</button>
-          <button ion-button small ionicStepperNext>Next</button>
+          <ion-button (click)="onPrevious()">previous</ion-button>
+          <ion-button (click)="onFinalStep()" [disabled]="secondFormGroup.invalid">next</ion-button>
         </div>
       </form>
-<!--    </ion-step>-->
-<!--    <ion-step>-->
+  </div>
+  <div *ngIf="isFinalStep" class="user-registration-content">
       <ng-template>Done</ng-template>
       <p>You are now done.</p>
       <div>
-        <button ion-button color="light" small ionicStepperPrevious>Previous</button>
+        <ion-button (click)="onNext()">previous</ion-button>
         <div *ngIf="!user">
           <ion-button (click)="onSave(firstFormGroup, secondFormGroup)" >Save</ion-button>
         </div>
@@ -141,7 +134,6 @@
           <ion-button (click)="onUpdate(firstFormGroup, secondFormGroup)" >Update</ion-button>
         </div>
       </div>
-<!--    </ion-step>-->
-<!--  </ion-stepper>-->
+  </div>
 
 </ion-content>

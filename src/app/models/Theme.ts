@@ -21,4 +21,5 @@ export interface Theme {
   pizzaRating: Rating[];
   comments: Comment[];
   cartElements: number;
+  message: string;
 }

@@ -1,18 +1,16 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
     <ion-title>user-auth</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-<!--  <ion-card class="card-auth"-->
-<!--            [style]="themeService.data.value.isDarkTheme ? 'background-color: black; color: white' : 'background-color: white; color: black'">-->
-    <ion-list class="card-auth"
+<ion-content [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
+   <ion-list class="card-auth"
               [style]="themeService.data.value.isDarkTheme ? 'background-color: black; color: white' : 'background-color: white; color: black'">
       <form [formGroup]="authForm">
         <ng-template>Fill out your name</ng-template>
-        <ion-item>
-          <ion-label [style]="themeService.data.value.isDarkTheme ? 'color: white' : 'color: black'" floating>
+        <ion-item [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
+          <ion-label >
             Login
           </ion-label>
           <ion-input
@@ -20,10 +18,9 @@
             [formControl]="username" required>
           </ion-input>
         </ion-item>
-        <ion-item
-          [style]="themeService.data.value.isDarkTheme ? 'width: 100%;box-shadow: 0 1px 0;' :'width: 100%'">
-          <ion-label [style]="themeService.data.value.isDarkTheme ? 'color: white' : 'color: black'" floating>
-            Enter your password
+        <ion-item [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
+          <ion-label>
+            Enter password
           </ion-label>
           <ion-input type="password"
                      [type]="hide ? 'password' : 'text'" [formControl]="password" clear-input>

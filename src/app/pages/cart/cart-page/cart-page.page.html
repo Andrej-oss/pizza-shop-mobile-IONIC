@@ -1,22 +1,13 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
     <ion-title>cart-page</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <div *ngIf="cartElements && cartElements.length"
-       [style]="themeService.data.value.isDarkTheme ? 'background-color: black; color: white' : 'background-color: white; color: black'">
-    <!--    <mat-horizontal-stepper-->
-    <!--      [style]="themeObjectService.data.value.isDarkTheme ? 'background-color: black; color: white' : 'background-color: white; color: black'"-->
-    <!--      (animationDone)="onPayment()">-->
-    <!--      <mat-step label="Cart" state="cart" (click)="onPayment()">-->
+<ion-content [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
+  <div *ngIf="cartElements && cartElements.length">
     <div class="pizza-cart-page"
-         *ngIf="isOpenCart"
-         [style]="themeService.data.value.isDarkTheme ? 'background-color: black; color: white' : 'background-color: white; color: black'">
-      <h2>
-        Cart
-      </h2>
+         *ngIf="isOpenCart">
       <app-cart-card [cartElements]="cartElements"
                      [desserts]="desserts"
                      [pizzas]="pizzas"
@@ -25,10 +16,9 @@
       </app-cart-card>
       <ion-button (click)="onAddressOpen()">Next</ion-button>
     </div>
-    <!--      </mat-step>-->
+    <ion-card [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
       <div class="pizza-cart-page-payment-content-user"
-           *ngIf="isOpenAddressStep"
-           [style]="themeService.data.value.isDarkTheme ? 'background-color: black; color: white' : 'background-color: white; color: black'">
+           *ngIf="isOpenAddressStep">
         <div class="pizza-cart-page-payment-content-user-name">
           Dear customer, {{principal.name }} {{principal.lastName}}, please check and
           confirm your data for delivery or change if data is wrong.
@@ -46,22 +36,22 @@
         <ion-button (click)="backToCart()">Back</ion-button>
         <ion-button (click)="onOpenPayment()">Next</ion-button>
       </div>
+    </ion-card>
+    <ion-card [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
     <div *ngIf="isOpenPayment">
-      <ion-card>
+      <ion-card [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
         <p>{{principal.name }} {{principal.lastName}}
           , input your name and number your card, data and CVC code.
         </p>
-<!--        <div class="pizza-cart-page-payment-payment" *ngIf="themeService.data.value.isOpenPayment">-->
           <app-payment [price]="themeService.data.value.totalPrice"
                        [allCart]="cartElements"
                        [description]="cartElements | json"
                        [tittle]="'all elements in cart'"></app-payment>
-<!--        </div>-->
-        <!--      </mat-step>-->
         <ion-button (click)="backToAddressStep()">Back</ion-button>
       </ion-card>
     </div>
-    <div *ngIf="!cartElements.length">
+    </ion-card>
+    <div *ngIf="cartElements > 0">
       <h1>
         Your cart is empty. Please add pizza to cart.
       </h1>

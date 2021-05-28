@@ -30,7 +30,7 @@ export class CartCardItemComponent implements OnInit {
   urlDrink = 'http://localhost:8080/drink/';
   urlSnack = 'http://localhost:8080/snack/';
   urlDessert = 'http://localhost:8080/dessert/';
-  constructor(private themeService: ThemeService,
+  constructor(public themeService: ThemeService,
               private userService: UserService,
               private cartService: CartService) {
   }

@@ -1,15 +1,16 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
     <ion-title>dessert</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-card *ngFor="let dessert of desserts">
-    <ion-item>
+<ion-content [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
+  <ion-card [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'"
+            *ngFor="let dessert of desserts">
+    <ion-item [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
       <ion-icon name="pin" slot="start"></ion-icon>
       <ion-label><img [src]="url+dessert.path"
-                      class="pizza-card-image"
+                      class="dessert-card-image"
       ></ion-label>
       <ion-button fill="outline" slot="end">View</ion-button>
     </ion-item>

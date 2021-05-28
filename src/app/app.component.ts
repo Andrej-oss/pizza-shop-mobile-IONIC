@@ -32,6 +32,6 @@ export class AppComponent {
   }
 
   onDarkTheme(): void{
-    this.themeService.data.value.isDarkTheme = true;
+    this.themeService.data.value.isDarkTheme = !this.themeService.data.value.isDarkTheme;
   }
 }

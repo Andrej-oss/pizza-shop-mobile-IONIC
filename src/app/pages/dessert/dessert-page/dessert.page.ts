@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {DessertService} from '../../services/dessertDao/dessert.service';
-import {Dessert} from '../../models/Dessert';
+import {DessertService} from '../../../services/dessertDao/dessert.service';
+import {Dessert} from '../../../models/Dessert';
 import {Router} from '@angular/router';
+import {ThemeService} from '../../../../theme/behaviour-subject/theme.service';
 
 @Component({
   selector: 'app-dessert',
@@ -11,7 +12,9 @@ import {Router} from '@angular/router';
 export class DessertPage implements OnInit {
 desserts: Dessert[];
   url = 'http://localhost:8080/dessert/';
-  constructor(private dessertService: DessertService, private router: Router) { }
+  constructor(private dessertService: DessertService,
+              public themeService: ThemeService,
+              private router: Router) { }
 
   ngOnInit() {
     this.dessertService.getAllDessert().subscribe(data => this.desserts = data);

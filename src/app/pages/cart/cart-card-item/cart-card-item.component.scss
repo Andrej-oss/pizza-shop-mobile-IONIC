@@ -1,0 +1,20 @@
+.pizza-cart-card-item{
+  &-delete{
+    position: initial;
+    left: 80%;
+
+  }
+  &-image{
+    border-radius: 50%;
+    width: 100px;
+    margin: 5% 40% 5% 25%;
+  }
+  &-buttons{
+    margin-left: 30%;
+    font-size: 25px;
+  }
+  &-price{
+    font-size: 35px;
+    margin-left: 80%;
+  }
+}

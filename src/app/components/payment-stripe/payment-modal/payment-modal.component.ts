@@ -28,7 +28,7 @@ export class PaymentModalComponent implements OnInit {
               private userService: UserService,
               private toastrService: ToastrService,
               private activeModal: NgbActiveModal,
-              private themeService: ThemeService,
+              public themeService: ThemeService,
               private router: Router) {
   }
 

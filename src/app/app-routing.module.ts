@@ -26,7 +26,7 @@ const routes: Routes = [
   },
   {
     path: 'dessert',
-    loadChildren: () => import('./pages/dessert/dessert.module').then( m => m.DessertPageModule)
+    loadChildren: () => import('./pages/dessert/dessert-page/dessert.module').then(m => m.DessertPageModule)
   },
   {
     path: 'pizza/:id',
@@ -52,6 +52,14 @@ const routes: Routes = [
   {
     path: 'user-page',
     loadChildren: () => import('./pages/user/user-page/user-page.module').then( m => m.UserPagePageModule), canActivate: [UserPageGuardGuard]
+  },
+  {
+    path: 'dessert-edtail',
+    loadChildren: () => import('./pages/dessert/dessert-edtail/dessert-edtail.module').then( m => m.DessertEdtailPageModule)
+  },
+  {
+    path: 'dessert-detail',
+    loadChildren: () => import('./pages/dessert/dessert-detail/dessert-detail.module').then( m => m.DessertDetailPageModule)
   },
 ];
 

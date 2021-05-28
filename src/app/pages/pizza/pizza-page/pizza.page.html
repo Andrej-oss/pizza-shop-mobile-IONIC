@@ -1,14 +1,16 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
     <ion-title>pizza</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-card *ngFor="let pizza of pizzas">
-    <ion-item>
+<ion-content  [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
+  <ion-card  [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'"
+             *ngFor="let pizza of pizzas">
+    <ion-item [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
       <ion-icon name="pin" slot="start"></ion-icon>
-      <ion-label><img [src]="url+pizza.path"
+      <ion-label>
+        <img [src]="url+pizza.path"
                       class="pizza-card-image"
       ></ion-label>
       <ion-button fill="outline" slot="end" (click)="onPizzaDetail(pizza.id)">View</ion-button>

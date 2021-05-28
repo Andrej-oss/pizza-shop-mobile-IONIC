@@ -1,12 +1,12 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
     <ion-title>pizza-detail</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-card>
-    <ion-item>
+<ion-content [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
+  <ion-card [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
+    <ion-item [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
       <ion-icon name="pin" slot="start"></ion-icon>
       <ion-label *ngIf="sizePizza">
         <div class="pizza-details-content">
@@ -17,7 +17,7 @@
           </ion-card-title>
         </div>
         <div [className]="classSize">
-        <img [src]="sizeUrl+sizePizza.path">
+        <img [src]="sizeUrl+sizePizza.path" class="pizza-details-content-img">
         </div>
         <app-stars [averageRating]="getAverageRating()"></app-stars>
       </ion-label>

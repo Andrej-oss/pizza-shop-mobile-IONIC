@@ -10,7 +10,8 @@ import {ToastrModule} from 'ngx-toastr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserAvatarPipe } from './pipes/user-avatar.pipe';
 import {UserAuthPage} from './pages/user/user-auth/user-auth.page';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {PaymentComponent} from './components/payment-stripe/payment/payment.component';
 
 @NgModule({
   declarations: [AppComponent, UserAvatarPipe, UserAuthPage],
@@ -18,6 +19,7 @@ import {ReactiveFormsModule} from '@angular/forms';
   imports: [BrowserModule,
     IonicModule.forRoot(),
     HttpClientModule,
+    FormsModule,
     NgxStripeModule.forRoot('pk_test_51Hv6uTGmmCaqYLZpH2DedxpEXPGQFNx7eM4i' +
       'aTxkjowLq94xpVY5ORolZnmokcoiwQ51IAMCWsGC0B6cl6c7EbUg00Aefbn2rC'),
     NgbModule,
@@ -26,7 +28,7 @@ import {ReactiveFormsModule} from '@angular/forms';
     NgbModule, ReactiveFormsModule],
   providers: [{provide: RouteReuseStrategy, useClass: IonicRouteStrategy}],
   bootstrap: [AppComponent],
-    exports: [
-    ]
+  exports: [
+  ]
 })
 export class AppModule {}

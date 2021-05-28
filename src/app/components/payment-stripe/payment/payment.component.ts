@@ -7,6 +7,7 @@ import {StripeCardElement, StripeElements, StripeElementsOptions} from '@stripe/
 import {Payment} from '../../../models/Payment';
 import {PaymentModalComponent} from '../payment-modal/payment-modal.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ThemeService} from '../../../../theme/behaviour-subject/theme.service';
 
 @Component({
   selector: 'app-payment',
@@ -31,6 +32,7 @@ export class PaymentComponent implements OnInit {
   };
   constructor(private paymentService: PaymentService,
               public modalService: NgbModal,
+              public themeService: ThemeService,
               private stripeService: StripeService,
               private router: Router) { }
   public StripeControl = new FormGroup({

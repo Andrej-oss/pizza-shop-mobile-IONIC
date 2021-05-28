@@ -22,13 +22,9 @@ import {CommentFormComponent} from '../../../components/comment/comment-form/com
         PizzaDetailPageRoutingModule,
         ReactiveFormsModule
     ],
-    exports: [
-        PaymentComponent
-    ],
     declarations: [PizzaDetailPage,
         IngredientComponent,
         StarsComponent,
-        PaymentComponent,
         PaymentModalComponent, CommentComponent, CommentFormComponent]
 })
 export class PizzaDetailPageModule {}

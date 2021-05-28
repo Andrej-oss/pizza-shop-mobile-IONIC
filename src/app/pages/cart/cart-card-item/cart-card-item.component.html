@@ -1,6 +1,12 @@
+<ion-card [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
 <div class="pizza-cart-card-item" *ngIf="pizza">
   <div *ngIf="pizza">
     <img [src]="url+pizza.path" class="pizza-cart-card-item-image">
+    <ion-icon class="pizza-cart-card-item-delete"
+              (click)="onDelete(cartElement.id)"
+              slot="end"
+              size="large"
+              name="trash-outline"></ion-icon>
     <div class="pizza-cart-card-item-content">
       <div class="pizza-cart-card-item-content-tittle">
         {{pizza.name}}
@@ -12,17 +18,21 @@
         {{cartElement.description}}
       </p>
     </div>
-    <div class="pizza-cart-cart-item-buttons">
-      <button mat-mini-fab [disabled]="count <= 1" (click)="onDec()">-</button>
+    <div class="pizza-cart-card-item-buttons">
+        <button [style]="themeService.data.value.isDarkTheme ? 'color: white; background-color: #1e2023' : 'color: black; background-color: white'"
+                ion-button icon-only clear
+                style="border-radius: 100%; background-color: black"
+                [disabled]="count <= 1"
+                (click)="onDec()">
+          <ion-icon  name="remove-circle-outline"  slot="icon-only" size="large"></ion-icon></button>
       {{count}}
-      <button mat-mini-fab (click)="onInc()">+</button>
+      <ion-icon (click)="onInc()"
+                size="large"
+                name="add-circle-outline"></ion-icon>
     </div>
   </div>
   <div style="margin-top: 5%">
-      <ion-button (click)="onDelete(cartElement.id)">
-       delete
-    </ion-button>
-    <div class="pizza-cart-cart-item-price">
+    <div class="pizza-cart-card-item-price">
       {{price}}
     </div>
   </div>
@@ -38,17 +48,21 @@
         {{drink.volume}}
       </p>
     </div>
-    <div class="pizza-cart-cart-item-buttons">
-      <button mat-mini-fab [disabled]="count <= 1" (click)="onDec()">-</button>
+    <div class="pizza-cart-card-item-buttons">
+      <button [style]="themeService.data.value.isDarkTheme ? 'color: white; background-color: #1e2023' : 'color: black; background-color: white'"
+              ion-button icon-only clear
+              style="border-radius: 100%; background-color: black"
+              [disabled]="count <= 1"
+              (click)="onDec()">
+        <ion-icon  name="remove-circle-outline"  slot="icon-only" size="large"></ion-icon></button>
       {{count}}
-      <button mat-mini-fab (click)="onInc()">+</button>
+      <ion-icon (click)="onInc()"
+                size="large"
+                name="add-circle-outline"></ion-icon>
     </div>
   </div>
   <div style="margin-top: 5%">
-      <ion-button (click)="onDelete(cartElement.id)">
-       delete
-    </ion-button>
-    <div class="pizza-cart-cart-item-price">
+    <div class="pizza-cart-card-item-price">
       {{price}}
     </div>
   </div>
@@ -64,17 +78,21 @@
         {{snack.volume}}
       </p>
     </div>
-    <div class="pizza-cart-cart-item-buttons">
-      <button mat-mini-fab [disabled]="count <= 1" (click)="onDec()">-</button>
+    <div class="pizza-cart-card-item-buttons">
+      <button [style]="themeService.data.value.isDarkTheme ? 'color: white; background-color: #1e2023' : 'color: black; background-color: white'"
+              ion-button icon-only clear
+              style="border-radius: 100%; background-color: black"
+              [disabled]="count <= 1"
+              (click)="onDec()">
+        <ion-icon  name="remove-circle-outline"  slot="icon-only" size="large"></ion-icon></button>
       {{count}}
-      <button mat-mini-fab (click)="onInc()">+</button>
+      <ion-icon (click)="onInc()"
+                size="large"
+                name="add-circle-outline"></ion-icon>
     </div>
   </div>
   <div style="margin-top: 5%">
-      <ion-button (click)="onDelete(cartElement.id)">
-       delete
-    </ion-button>
-    <div class="pizza-cart-cart-item-price">
+    <div class="pizza-cart-card-item-price">
       {{price}}
     </div>
   </div>
@@ -90,18 +108,23 @@
         {{dessert.volume}}
       </p>
     </div>
-    <div class="pizza-cart-cart-item-buttons">
-      <button mat-mini-fab [disabled]="count <= 1" (click)="onDec()">-</button>
+    <div class="pizza-cart-card-item-buttons">
+      <button [style]="themeService.data.value.isDarkTheme ? 'color: white; background-color: #1e2023' : 'color: black; background-color: white'"
+              ion-button icon-only clear
+              style="border-radius: 100%; background-color: black"
+              [disabled]="count <= 1"
+              (click)="onDec()">
+        <ion-icon  name="remove-circle-outline"  slot="icon-only" size="large"></ion-icon></button>
       {{count}}
-      <button mat-mini-fab (click)="onInc()">+</button>
+      <ion-icon (click)="onInc()"
+                size="large"
+                name="add-circle-outline"></ion-icon>
     </div>
   </div>
   <div style="margin-top: 5%">
-      <ion-button (click)="onDelete(cartElement.id)">
-       delete
-    </ion-button>
-    <div class="pizza-cart-cart-item-price">
+    <div class="pizza-cart-card-item-price">
       {{price}}
     </div>
   </div>
 </div>
+</ion-card>

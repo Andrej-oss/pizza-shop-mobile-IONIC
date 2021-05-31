@@ -28,6 +28,7 @@
         <app-purchase-item [pizzas]="pizzas"
                            [desserts]="desserts"
                            [drinks]="drinks"
+                           (deletedPurchaseId)="deletePurchase($event)"
                            [purchasesUser]="purchases"
                            [snacks]="snacks">
         </app-purchase-item>

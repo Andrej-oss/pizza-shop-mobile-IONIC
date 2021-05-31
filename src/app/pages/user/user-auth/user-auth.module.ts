@@ -16,6 +16,5 @@ import { UserAuthPage } from './user-auth.page';
         UserAuthPageRoutingModule,
         ReactiveFormsModule
     ],
-  declarations: [UserAuthPage]
 })
 export class UserAuthPageModule {}

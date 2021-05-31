@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
+    <ion-title>snack-detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
+  <ion-card [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
+    <div class="snack-sheet">
+      <div *ngIf="!!snack"
+           class="snack-sheet-content">
+        <ion-card-title>
+          {{snack.name}}
+        </ion-card-title>
+        <img [src]="url+snack.path" class="snack-sheet-content-image">
+        <div class="snack-sheet-content-text">
+          <ion-card-subtitle>
+            {{snack.volume}}
+          </ion-card-subtitle>
+          <ion-card-content>
+            {{snack.description}}
+          </ion-card-content>
+          <div>
+            <ion-button
+              (click)="saveSnackInCart(snack)"
+              [disabled]="!themeService.data.value.userName.length">
+              Add to cart
+            </ion-button>
+            <ion-button
+              (click)="openPayment(snack)"
+              [disabled]="!themeService.data.value.userName.length">
+              {{isPaymentOpen ? 'hide payment form' : "Buy for " + snack.price}}
+            </ion-button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="isPaymentOpen">
+      <app-payment [snackId]="snack.id"
+                   [price]="snack.price"
+                   [volume]="snack.volume"
+                   [tittle]="snack.name"></app-payment>
+    </div>
+  </ion-card>
+</ion-content>

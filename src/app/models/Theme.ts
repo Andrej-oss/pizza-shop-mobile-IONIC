@@ -3,6 +3,7 @@ import {Rating} from './Rating';
 import {Avatar} from './Avatar';
 import {Comment} from './Comment';
 import {User} from './User';
+import {Pizza} from './Pizza';
 
 export interface Theme {
   userId: number;
@@ -15,8 +16,7 @@ export interface Theme {
   isDarkTheme: boolean;
   ingredients: number[];
   ingredientsPizza: Ingredient[];
-  pizzaName: string;
-  pizzaDescription: string;
+  pizza: Pizza;
   pizzaPrice: number;
   pizzaRating: Rating[];
   comments: Comment[];

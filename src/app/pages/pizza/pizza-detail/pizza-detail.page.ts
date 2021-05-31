@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {SizeService} from '../../../services/sizeDao/size.service';
 import {ActivatedRoute} from '@angular/router';
 import {SizePizza} from '../../../models/SizePizza';
@@ -12,6 +12,7 @@ import {RatingService} from '../../../services/ratingDao/rating.service';
 import {Cart} from '../../../models/Cart';
 import {CartService} from '../../../services/cartDao/cart.service';
 import {ToasterServiceService} from '../../../services/toaster/toaster-service.service';
+import {Pizza} from '../../../models/Pizza';
 
 @Component({
   selector: 'app-pizza-detail',
@@ -31,6 +32,7 @@ export class PizzaDetailPage implements OnInit {
   pizzaRating: Rating[];
   averageRating: number;
   isOpenCommentForm: boolean;
+  pizza: Pizza;
   constructor(private sizeService: SizeService,
               private cartService: CartService,
               private ingredientService: IngredientService,
@@ -45,10 +47,13 @@ export class PizzaDetailPage implements OnInit {
     this.route.params.subscribe(data => this.pizzaId = data.id);
     this.isOpenPayment = false;
     this.isOpenComments = false;
+    if (this.themeService.data.value.pizza !== null){
+      this.pizza = this.themeService.data.value.pizza;
+    }
     console.log(this.themeService.data.value.ingredients, this.themeService.data.value.ingredientsPizza);
-    if (this.pizzaId !== 0) {
+    if (this.pizzaId !== 0 && this.pizza !== null) {
       this.sizeService.getPizzaSize(this.pizzaId, SizePizza.SMALL).subscribe(data => this.sizePizza = data);
-      this.pizzaDescription = this.themeService.data.value.pizzaDescription;
+      this.pizzaDescription = this.pizza.description;
       this.classSize = 'pizza-details-content-image-small';
       this.pizzaRating = this.themeService.data.value.pizzaRating;
       console.log(this.themeService.data.value.pizzaRating);
@@ -64,7 +69,7 @@ export class PizzaDetailPage implements OnInit {
       this.sizeService.getPizzaSize(this.pizzaId, SizePizza.SMALL).subscribe(data => {
         this.themeService.data.value.pizzaPrice = data.price;
         this.sizePizza = data;
-        this.themeService.data.value.pizzaDescription = this.pizzaDescription;
+        this.pizza.description = this.pizzaDescription;
         this.classSize = 'pizza-details-content-image-small';
       });
     }
@@ -75,7 +80,7 @@ export class PizzaDetailPage implements OnInit {
       this.sizeService.getPizzaSize(this.pizzaId, SizePizza.MEDIUM).subscribe(data => {
         this.themeService.data.value.pizzaPrice = data.price;
         this.sizePizza = data;
-        this.themeService.data.value.pizzaDescription = this.pizzaDescription;
+        this.pizza.description = this.pizzaDescription;
         this.classSize = 'pizza-details-content-image-medium';
       });
     }
@@ -86,23 +91,23 @@ export class PizzaDetailPage implements OnInit {
       this.sizeService.getPizzaSize(this.pizzaId, SizePizza.LARGE).subscribe(data => {
         this.themeService.data.value.pizzaPrice = data.price;
         this.sizePizza = data;
-        this.themeService.data.value.pizzaDescription = this.pizzaDescription;
+        this.pizza.description = this.pizzaDescription;
         this.classSize = 'pizza-details-content-image-large';
       });
     }
   }
 
   onAddClick(name: string, price: number): void {
-    const strings = this.themeService.data.value.pizzaDescription.split(',');
+    const strings = this.pizza.description.split(',');
     if (strings.includes(`${name}`)) {
       const findIndex = strings.findIndex(value => value === name);
       strings.splice(findIndex, 1);
-      this.themeService.data.value.pizzaDescription = strings.join(',');
+      this.pizza.description = strings.join(',');
       this.themeService.data.value.pizzaPrice = this.themeService.data.value.pizzaPrice - price;
     } else if (!strings.includes(`${name}`)) {
       strings.push(name);
       this.themeService.data.value.pizzaPrice = this.themeService.data.value.pizzaPrice + price;
-      this.themeService.data.value.pizzaDescription = strings.join(',');
+      this.pizza.description = strings.join(',');
     }
   }
 
@@ -139,13 +144,13 @@ export class PizzaDetailPage implements OnInit {
 
   savePizzaInCart(id: number): void {
     this.cart = {
-      description: this.themeService.data.value.pizzaDescription,
+      description: this.pizza.description,
       pizzaId: id,
       amount: 1,
       price: this.themeService.data.value.pizzaPrice,
       volume: this.sizePizza.weight,
       userId: this.themeService.data.value.userId,
-      size: this.sizePizza.size,
+      size: this.sizePizza.size ? this.sizePizza.size : SizePizza.SMALL,
     };
     this.cartService.savePizzaInCart(this.cart).subscribe(data => {
       this.themeService.data.value.message = 'Pizza added to cart';

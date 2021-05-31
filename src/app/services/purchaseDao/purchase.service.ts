@@ -3,13 +3,14 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Purchase} from '../../models/Purchase';
 import {PurchasePage} from '../../models/PurchasePage';
+import {APiURL} from '../../config/configURL';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class PurchaseService {
-  private baseUrl = 'http://localhost:8080/purchase/';
+  private baseUrl = APiURL.purchaseURL;
 
   constructor(private httpClient: HttpClient) { }
   getPurchasesByUser(userId: number): Observable<Purchase[]>{

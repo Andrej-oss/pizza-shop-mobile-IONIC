@@ -11,7 +11,7 @@
       <ion-label *ngIf="sizePizza">
         <div class="pizza-details-content">
           <ion-card-title>
-            {{themeService.data.value.pizzaName}}({{sizePizza.name}})
+            {{themeService.data.value.pizza.name}}({{sizePizza.name}})
             <br>
             Diameter: {{sizePizza.diameter}}cm, weight: {{sizePizza.weight}}gr.
           </ion-card-title>
@@ -24,7 +24,7 @@
     </ion-item>
     <ion-card-content *ngIf="sizePizza">
       <ion-card-subtitle class="pizza-details-content-desc">
-        {{themeService.data.value.pizzaDescription}}
+        {{themeService.data.value.pizza.description}}
       </ion-card-subtitle>
       <ion-button fill="outline" (click)="onSmall()" slot="end">Small</ion-button>
       <ion-button fill="outline" (click)="onMedium()" slot="end">Medium</ion-button>
@@ -59,9 +59,11 @@
         {{!isOpenComments ? "Show Comments" : "Hide Comments"}}
       </ion-button>
       <div *ngIf="isOpenPayment">
-        <app-payment [pizzaId]="pizzaId"
+        <app-payment [pizzaId]="+pizzaId"
+                     [tittle]="pizza.name"
+                     [volume]="sizePizza.diameter"
                      [price]="themeService.data.value.pizzaPrice"
-                     [description]="themeService.data.value.pizzaDescription" ></app-payment>
+                     [description]="pizza.description" ></app-payment>
       </div>
       <div *ngIf="isOpenComments">
         <div *ngIf="!comments.length">

@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar  [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
+    <ion-title>drink-detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
+  <ion-card [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
+    <div class="drink-sheet">
+      <div *ngIf="!!drink"
+           class="drink-sheet-content">
+        <ion-card-title>
+          {{drink.name}}
+        </ion-card-title>
+        <img [src]="url+drink.path" class="drink-sheet-content-image">
+        <div class="drink-sheet-content-text">
+          <ion-card-subtitle>
+            {{drink.volume}}
+          </ion-card-subtitle>
+          <div>
+            <ion-button
+              (click)="saveDrinkInCart(drink)"
+              [disabled]="!themeService.data.value.userName.length">
+              Add to cart for {{drink.price}}
+            </ion-button>
+            <ion-button
+              (click)="openPayment(drink)"
+              [disabled]="!themeService.data.value.userName.length">
+              {{isPaymentOpen ? 'hide payment form' : "Buy dessert for " + drink.price}}
+            </ion-button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="isPaymentOpen">
+      <app-payment [drinkId]="drink.id"
+                   [price]="drink.price"
+                   [volume]="drink.volume"
+                   [tittle]="drink.name"></app-payment>
+    </div>
+  </ion-card>
+</ion-content>

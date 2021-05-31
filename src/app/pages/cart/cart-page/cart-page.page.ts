@@ -9,6 +9,7 @@ import {PizzaService} from '../../../services/pizzaDao/pizza.service';
 import {DessertService} from '../../../services/dessertDao/dessert.service';
 import {CartService} from '../../../services/cartDao/cart.service';
 import {ThemeService} from '../../../../theme/behaviour-subject/theme.service';
+import {DrinkService} from '../../../services/drinkDao/drink.service';
 
 @Component({
   selector: 'app-cart-page',
@@ -29,6 +30,7 @@ export class CartPagePage implements OnInit {
   constructor(private snackService: SnackService,
               private pizzaService: PizzaService,
               private dessertService: DessertService,
+              private drinkService: DrinkService,
               private cartService: CartService,
               public themeService: ThemeService) { }
 
@@ -41,6 +43,7 @@ export class CartPagePage implements OnInit {
     this.snackService.getAllSnacks().subscribe(data => this.snacks = data);
     this.pizzaService.getAllPizza().subscribe(data => this.pizzas = data);
     this.dessertService.getAllDessert().subscribe(data => this.desserts = data);
+    this.drinkService.getAllDrinks().subscribe(data => this.drinks = data);
   }
 
   onPayment(): void{
@@ -72,6 +75,7 @@ export class CartPagePage implements OnInit {
   }
 
   onDeleteCartItem(id: number) {
+    debugger;
     const index = this.cartElements.findIndex(value => value.id === id);
     this.cartElements.splice(index, 1);
   }

@@ -1,24 +1,24 @@
 <ion-header>
   <ion-toolbar [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
-    <ion-title>snack</ion-title>
+    <ion-title>drinks</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
   <ion-card [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'"
-    *ngFor="let snack of snacks">
+    *ngFor="let drink of drinks">
     <ion-item [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
       <ion-icon name="pin" slot="start"></ion-icon>
-      <ion-label><img [src]="url+snack.path"
-                      class="snack-card-image"
+      <ion-label><img [src]="url+drink.path"
+                      class="drink-card-image"
       ></ion-label>
-      <ion-button fill="outline" slot="end">View</ion-button>
+      <ion-button fill="outline" slot="end" (click)="onDrinkDetail(drink.id)">View</ion-button>
     </ion-item>
 
     <ion-card-content>
-      {{snack.description}}
+      {{drink.volume}}
       <h4>
-        {{snack.name}} - {{snack.price}}
+        {{drink.name}} - {{drink.price}}
       </h4>
     </ion-card-content>
   </ion-card>

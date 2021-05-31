@@ -12,7 +12,7 @@
       <ion-label><img [src]="url+dessert.path"
                       class="dessert-card-image"
       ></ion-label>
-      <ion-button fill="outline" slot="end">View</ion-button>
+      <ion-button fill="outline" slot="end" (click)="chooseDessert(dessert.id)">View</ion-button>
     </ion-item>
 
     <ion-card-content>

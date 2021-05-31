@@ -42,6 +42,7 @@ export class PaymentComponent implements OnInit {
     this.stripeService.elements(this.elementsOptions)
       .subscribe(elements => {
         this.elements = elements;
+        debugger;
         console.log(this.elements);
         if (!this.card) {
           // @ts-ignore
@@ -65,6 +66,7 @@ export class PaymentComponent implements OnInit {
       });
   }
   buy(): void{
+    debugger;
     const name = this.StripeControl.get('name').value;
     this.stripeService.createToken(this.card, {name})
       .subscribe(data => {

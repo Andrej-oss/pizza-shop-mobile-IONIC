@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Comment} from '../../models/Comment';
+import {APiURL} from '../../config/configURL';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommentService {
-  private baseUrl = 'http://localhost:8080/comment/';
+  private baseUrl = APiURL.commentURL;
   constructor(private httpClient: HttpClient) { }
   getComments(pizzaId: number): Observable<Comment[]>{
     return this.httpClient.get<Comment[]>(this.baseUrl + `${pizzaId}`);

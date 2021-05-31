@@ -2,62 +2,70 @@
   <ion-split-pane contentId="main-content">
     <ion-menu contentId="main-content" type="overlay">
       <ion-content [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
+        <div class="pizza-shop-settings">
+          <div class="pizza-shop-logo">
+            <ion-toggle (click)="onDarkTheme()"></ion-toggle>
+          </div>
+          <div (click)="onUserPage()">
+            <ion-avatar *ngIf="!!this.themeService.data.value.avatar">
+              <img src="{{avatarUrl + this.themeService.data.value.avatar.path}}"
+                   class="pizza-shop-logo"/>
+            </ion-avatar>
+            <p *ngIf="!!themeService.data.value.principle">
+              {{themeService.data.value.principle.username}}
+            </p>
+          </div>
+        </div>
         <ion-list id="inbox-list">
           <ion-list-header [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
-            <ion-toggle color="dark" (click)="onDarkTheme()"></ion-toggle>
-            <ion-avatar *ngIf="!!this.themeService.data.value.avatar">
-              <div (click)="onUserPage()">
-              <img src="{{avatarUrl + this.themeService.data.value.avatar.path}}"
-                   style="width: 50%; border-radius: 50%">
-              </div>
-            </ion-avatar>
+            <img src="./assets/pzza-shop.png" class="pizza-shop-logo">
             Pizza Shop
           </ion-list-header>
 
           <ion-menu-toggle auto-hide="false">
             <ion-item [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'"
-              routerDirection="root"
-              [routerLink]="['pizza']"
-              lines="none" detail="false"
-              routerLinkActive="selected">
+                      routerDirection="root"
+                      [routerLink]="['pizza']"
+                      lines="none" detail="false"
+                      routerLinkActive="selected">
               <ion-icon slot="start" [ios]="'pizza'" [md]="'pizza'"></ion-icon>
               <ion-label>Pizza</ion-label>
             </ion-item>
             <ion-item [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'"
-              routerDirection="root"
-              [routerLink]="['snack']"
-              lines="none" detail="false"
-              routerLinkActive="selected">
+                      routerDirection="root"
+                      [routerLink]="['snack']"
+                      lines="none" detail="false"
+                      routerLinkActive="selected">
               <ion-icon slot="start" name="fast-food-outline"></ion-icon>
               <ion-label>Snacks</ion-label>
             </ion-item>
             <ion-item [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'"
-              routerDirection="root"
-              [routerLink]="['dessert']"
-              lines="none" detail="false"
-              routerLinkActive="selected">
+                      routerDirection="root"
+                      [routerLink]="['dessert']"
+                      lines="none" detail="false"
+                      routerLinkActive="selected">
               <ion-icon slot="start" [ios]="'ice-cream'" [md]="'ice-cream'"></ion-icon>
               <ion-label>Desserts</ion-label>
             </ion-item>
             <ion-item [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'"
-              routerDirection="root"
-              [routerLink]="['drinks']"
-              lines="none"
-              detail="false"
-              routerLinkActive="selected">
+                      routerDirection="root"
+                      [routerLink]="['drinks']"
+                      lines="none"
+                      detail="false"
+                      routerLinkActive="selected">
               <ion-icon slot="start" [ios]="'pint'" [md]="'pint'"></ion-icon>
               <ion-label>Drinks</ion-label>
             </ion-item>
             <div *ngIf="themeService.data.value.userId === 0">
-            <ion-item [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'"
-              routerDirection="root"
-              [routerLink]="['user-auth']"
-              lines="none"
-              detail="false"
-              routerLinkActive="selected">
-<!--              <ion-icon slot="start" [ios]="'pint'" [md]="'pint'"></ion-icon>-->
-              <ion-label>Sing in</ion-label>
-            </ion-item>
+              <ion-item [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'"
+                        routerDirection="root"
+                        [routerLink]="['user-auth']"
+                        lines="none"
+                        detail="false"
+                        routerLinkActive="selected">
+                <ion-icon name="power" slot="start" color="success"></ion-icon>
+                <ion-label>Sing in</ion-label>
+              </ion-item>
             </div>
             <div *ngIf="themeService.data.value.userId !== 0">
               <ion-item (click)="onLogOut()"
@@ -67,23 +75,26 @@
                         lines="none"
                         detail="false"
                         routerLinkActive="selected">
+                <ion-icon name="power" slot="start" color="danger"></ion-icon>
                 <ion-label>Sing out</ion-label>
               </ion-item>
             </div>
             <ion-item [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'"
-              routerDirection="root"
-              [routerLink]="['user-registration']"
-              lines="none"
-              detail="false"
-              routerLinkActive="selected">
+                      routerDirection="root"
+                      [routerLink]="['user-registration']"
+                      lines="none"
+                      detail="false"
+                      routerLinkActive="selected">
+              <ion-icon slot="start" color="medium" name="clipboard"></ion-icon>
               <ion-label>Sign up</ion-label>
             </ion-item>
             <ion-item [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'"
-              routerDirection="root"
-              [routerLink]="['cart-page']"
-              lines="none"
-              detail="false"
-              routerLinkActive="selected">
+                      routerDirection="root"
+                      [routerLink]="['cart-page']"
+                      lines="none"
+                      detail="false"
+                      routerLinkActive="selected">
+              <ion-icon color="medium" slot="start" name="cart"></ion-icon>
               <ion-label>Cart</ion-label>
               <ion-badge color="{{themeService.data.value.cartElements !== 0 ? 'danger' : 'medium'}}">
                 {{this.themeService.data.value.cartElements}}
@@ -91,6 +102,22 @@
             </ion-item>
           </ion-menu-toggle>
         </ion-list>
+        <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+          <ion-fab-button color="light">
+            <ion-icon md="caret-back" ios="chevron-back-circle-outline"></ion-icon>
+          </ion-fab-button>
+          <ion-fab-list side="start">
+            <ion-fab-button color="light">
+              <ion-icon name="logo-facebook"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button color="light">
+              <ion-icon name="logo-twitter"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button color="light">
+              <ion-icon name="logo-linkedin"></ion-icon>
+            </ion-fab-button>
+          </ion-fab-list>
+        </ion-fab>
       </ion-content>
     </ion-menu>
     <ion-router-outlet id="main-content"></ion-router-outlet>

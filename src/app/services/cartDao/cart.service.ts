@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Cart} from '../../models/Cart';
+import {APiURL} from '../../config/configURL';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  private baseUrl = 'http://localhost:8080/cart';
+  private baseUrl = APiURL.cartURL;
 
   constructor(private httpClient: HttpClient) { }
   getAllCartsElements(id: number): Observable<Cart[]>{

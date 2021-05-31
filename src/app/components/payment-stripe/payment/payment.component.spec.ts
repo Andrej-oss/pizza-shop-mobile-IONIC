@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-
+import {FormGroup} from '@angular/forms';
 import { PaymentComponent } from './payment.component';
 
 describe('PaymentComponent', () => {

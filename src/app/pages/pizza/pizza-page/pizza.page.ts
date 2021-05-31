@@ -35,8 +35,7 @@ export class PizzaPage implements OnInit {
       let array = [];
       array = this.pizza.ingredients.split(',');
       this.themeService.data.value.ingredients = array;
-      this.themeService.data.value.pizzaName = this.pizza.name;
-      this.themeService.data.value.pizzaDescription = this.pizza.description;
+      this.themeService.data.value.pizza = this.pizza;
       this.themeService.data.value.pizzaPrice = this.pizza.price;
       this.themeService.data.value.pizzaRating = this.pizza.rating;
     }

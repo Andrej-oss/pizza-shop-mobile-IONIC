@@ -10,6 +10,7 @@ import {PaymentComponent} from '../../../components/payment-stripe/payment/payme
 import {CartCardComponent} from '../cart-card/cart-card.component';
 import { CartPagePageRoutingModule } from './cart-page-routing.module';
 import {AppModule} from '../../../app.module';
+import {PaymentModule} from '../../../components/payment-stripe/payment/payment.module';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import {AppModule} from '../../../app.module';
     IonicModule,
     CartPagePageRoutingModule,
     ReactiveFormsModule,
+    PaymentModule,
   ],
-  declarations: [CartPagePage, CartCardItemComponent, CartCardComponent, PaymentComponent]
+  declarations: [CartPagePage, CartCardItemComponent, CartCardComponent, ]
 })
 export class CartPagePageModule {}

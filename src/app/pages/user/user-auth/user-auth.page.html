@@ -5,8 +5,7 @@
 </ion-header>
 
 <ion-content [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
-   <ion-list class="card-auth"
-              [style]="themeService.data.value.isDarkTheme ? 'background-color: black; color: white' : 'background-color: white; color: black'">
+   <ion-card class="card-auth" [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
       <form [formGroup]="authForm">
         <ng-template>Fill out your name</ng-template>
         <ion-item [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
@@ -28,10 +27,8 @@
         </ion-item>
       </form>
       <ion-button
-        aria-label="Show an example snack-bar"
         (click)="onAuthenticate(authForm)"
-        [disabled]="authForm.invalid || authForm.disabled"
-        style="left: 70%; background-color: white; margin-top: 5%">
+        [disabled]="authForm.invalid || authForm.disabled">
         Login
       </ion-button>
       <div *ngIf="error" class="card-auth-error">
@@ -47,6 +44,6 @@
           Forget your password or login?
         </a>
       </div>
-    </ion-list>
+    </ion-card>
 <!--  </ion-card>-->
 </ion-content>

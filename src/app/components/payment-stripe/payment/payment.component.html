@@ -1,6 +1,6 @@
 <ion-card [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
   <form novalidate (ngSubmit)="buy()"
-      [formGroup]="StripeControl" #f="ngForm">
+      [formGroup]="StripeControl"  #f="ngForm">
   <input class="form-control" type="text" formControlName="name" placeholder="name">
   <div id="card-element" class="field"></div>
   <div *ngIf="error" class="alert alert-danger">

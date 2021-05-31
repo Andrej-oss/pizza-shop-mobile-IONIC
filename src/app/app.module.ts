@@ -4,7 +4,7 @@ import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {NgxStripeModule} from 'ngx-stripe';
 import {ToastrModule} from 'ngx-toastr';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -12,6 +12,7 @@ import { UserAvatarPipe } from './pipes/user-avatar.pipe';
 import {UserAuthPage} from './pages/user/user-auth/user-auth.page';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {PaymentComponent} from './components/payment-stripe/payment/payment.component';
+import {TokenInterceptor} from './services/token-interceptor/token.interceptor';
 
 @NgModule({
   declarations: [AppComponent, UserAvatarPipe, UserAuthPage],
@@ -26,9 +27,9 @@ import {PaymentComponent} from './components/payment-stripe/payment/payment.comp
     ToastrModule.forRoot(),
     AppRoutingModule,
     NgbModule, ReactiveFormsModule],
-  providers: [{provide: RouteReuseStrategy, useClass: IonicRouteStrategy}],
+  providers: [{provide: HTTP_INTERCEPTORS, multi: true, useClass: TokenInterceptor},
+    {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}],
   bootstrap: [AppComponent],
-  exports: [
-  ]
+
 })
 export class AppModule {}

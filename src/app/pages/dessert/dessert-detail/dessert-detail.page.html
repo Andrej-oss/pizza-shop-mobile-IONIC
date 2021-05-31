@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
+    <ion-title>dessert-detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
+  <ion-card [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
+  <div class="dessert-sheet">
+      <div *ngIf="!!dessert"
+           class="dessert-sheet-content">
+        <ion-card-title>
+          {{dessert.name}}
+        </ion-card-title>
+        <img [src]="url+dessert.path" class="dessert-sheet-content-image">
+        <div class="dessert-sheet-content-text">
+          <ion-card-subtitle>
+            {{dessert.volume}}
+          </ion-card-subtitle>
+          <ion-card-content>
+            {{dessert.description}}
+          </ion-card-content>
+          <div>
+            <ion-button
+                    (click)="saveDessertInCart(dessert)"
+                    [disabled]="!themeService.data.value.userName.length">
+              Add to cart
+            </ion-button>
+            <ion-button
+                    (click)="openPayment(dessert)"
+                    [disabled]="!themeService.data.value.userName.length">
+              {{isPaymentOpen ? 'hide payment form' : "Buy for " + dessert.price}}
+            </ion-button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="isPaymentOpen">
+      <app-payment [dessertId]="dessert.id"
+                   [price]="dessert.price"
+                   [volume]="dessert.volume"
+                   [tittle]="dessert.name"
+                   [description]="dessert.description"></app-payment>
+    </div>
+  </ion-card>
+</ion-content>

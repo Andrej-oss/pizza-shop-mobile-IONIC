@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {User} from '../../models/User';
 import {AuthUser} from '../../models/AuthUser';
 import {ThemeService} from '../../../theme/behaviour-subject/theme.service';
+import {APiURL} from '../../config/configURL';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class UserService {
   private token = null;
   private authority = null;
   private userName = null;
-  private baseUrl = 'http://localhost:8080/user';
+  private baseUrl = APiURL.userURL;
 
   constructor(private httpClient: HttpClient,
               private themeService: ThemeService,

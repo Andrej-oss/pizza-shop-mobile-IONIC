@@ -3,13 +3,14 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Pizza} from '../../models/Pizza';
 import {PizzaPage} from '../../models/PizzaPage';
+import {APiURL} from '../../config/configURL';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class PizzaService {
-  private baseUrl = 'http://localhost:8080/pizza';
+  private baseUrl = APiURL.pizzaURL;
 
   constructor(private httpClient: HttpClient) {
   }

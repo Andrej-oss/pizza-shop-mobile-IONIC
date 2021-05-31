@@ -13,6 +13,7 @@ import {PaymentModalComponent} from '../../../components/payment-stripe/payment-
 import {StarsComponent} from '../../../components/stars/stars.component';
 import {CommentComponent} from '../../../components/comment/comment-card/comment.component';
 import {CommentFormComponent} from '../../../components/comment/comment-form/comment-form/comment-form.component';
+import {PaymentModule} from '../../../components/payment-stripe/payment/payment.module';
 
 @NgModule({
     imports: [
@@ -20,7 +21,8 @@ import {CommentFormComponent} from '../../../components/comment/comment-form/com
         FormsModule,
         IonicModule,
         PizzaDetailPageRoutingModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+      PaymentModule,
     ],
     declarations: [PizzaDetailPage,
         IngredientComponent,

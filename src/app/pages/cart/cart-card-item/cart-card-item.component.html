@@ -8,15 +8,15 @@
               size="large"
               name="trash-outline"></ion-icon>
     <div class="pizza-cart-card-item-content">
-      <div class="pizza-cart-card-item-content-tittle">
+      <ion-card-title class="pizza-cart-card-item-content-tittle">
         {{pizza.name}}
-      </div>
+      </ion-card-title>
       <div class="pizza-cart-card-item-content-size">
         {{cartElement.size}}
       </div>
-      <p>
+      <ion-card-content>
         {{cartElement.description}}
-      </p>
+      </ion-card-content>
     </div>
     <div class="pizza-cart-card-item-buttons">
         <button [style]="themeService.data.value.isDarkTheme ? 'color: white; background-color: #1e2023' : 'color: black; background-color: white'"
@@ -31,7 +31,7 @@
                 name="add-circle-outline"></ion-icon>
     </div>
   </div>
-  <div style="margin-top: 5%">
+  <div>
     <div class="pizza-cart-card-item-price">
       {{price}}
     </div>
@@ -40,13 +40,18 @@
 <div class="pizza-cart-card-item" *ngIf="drink">
   <div>
     <img [src]="urlDrink + drink.path" class="pizza-cart-card-item-image">
+    <ion-icon class="pizza-cart-card-item-delete"
+              (click)="onDelete(cartElement.id)"
+              slot="end"
+              size="large"
+              name="trash-outline"></ion-icon>
     <div class="pizza-cart-card-item-content">
-      <div class="pizza-cart-card-item-content-tittle">
+      <ion-card-title class="pizza-cart-card-item-content-tittle">
         {{drink.name}}
-      </div>
-      <p>
+      </ion-card-title>
+      <ion-card-content>
         {{drink.volume}}
-      </p>
+      </ion-card-content>
     </div>
     <div class="pizza-cart-card-item-buttons">
       <button [style]="themeService.data.value.isDarkTheme ? 'color: white; background-color: #1e2023' : 'color: black; background-color: white'"
@@ -61,7 +66,7 @@
                 name="add-circle-outline"></ion-icon>
     </div>
   </div>
-  <div style="margin-top: 5%">
+  <div >
     <div class="pizza-cart-card-item-price">
       {{price}}
     </div>
@@ -70,13 +75,18 @@
 <div class="pizza-cart-card-item" *ngIf="snack">
   <div>
     <img [src]="urlSnack + snack.path" class="pizza-cart-card-item-image">
+    <ion-icon class="pizza-cart-card-item-delete"
+              (click)="onDelete(cartElement.id)"
+              slot="end"
+              size="large"
+              name="trash-outline"></ion-icon>
     <div class="pizza-cart-card-item-content">
-      <div class="pizza-cart-card-item-content-tittle">
+      <ion-card-title class="pizza-cart-card-item-content-tittle">
         {{snack.name}}
-      </div>
-      <p>
+      </ion-card-title>
+      <ion-card-content>
         {{snack.volume}}
-      </p>
+      </ion-card-content>
     </div>
     <div class="pizza-cart-card-item-buttons">
       <button [style]="themeService.data.value.isDarkTheme ? 'color: white; background-color: #1e2023' : 'color: black; background-color: white'"
@@ -91,7 +101,7 @@
                 name="add-circle-outline"></ion-icon>
     </div>
   </div>
-  <div style="margin-top: 5%">
+  <div>
     <div class="pizza-cart-card-item-price">
       {{price}}
     </div>
@@ -100,13 +110,18 @@
 <div class="pizza-cart-card-item" *ngIf="dessert">
   <div>
     <img [src]="urlDessert + dessert.path" class="pizza-cart-card-item-image">
+    <ion-icon class="pizza-cart-card-item-delete"
+              (click)="onDelete(cartElement.id)"
+              slot="end"
+              size="large"
+              name="trash-outline"></ion-icon>
     <div class="pizza-cart-card-item-content">
-      <div class="pizza-cart-card-item-content-tittle">
+      <ion-card-title class="pizza-cart-card-item-content-tittle">
         {{dessert.name}}
-      </div>
-      <p>
+      </ion-card-title>
+      <ion-card-title>
         {{dessert.volume}}
-      </p>
+      </ion-card-title>
     </div>
     <div class="pizza-cart-card-item-buttons">
       <button [style]="themeService.data.value.isDarkTheme ? 'color: white; background-color: #1e2023' : 'color: black; background-color: white'"
@@ -121,7 +136,7 @@
                 name="add-circle-outline"></ion-icon>
     </div>
   </div>
-  <div style="margin-top: 5%">
+  <div>
     <div class="pizza-cart-card-item-price">
       {{price}}
     </div>

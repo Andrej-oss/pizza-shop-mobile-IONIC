@@ -7,7 +7,8 @@
           <div *ngIf="pizza.id === element.pizzaId && element.id === price.id" class="pizza-cart-cart-element">
             <app-cart-card-item [pizza]="pizza"
                                 [cartElement]="element"
-                                [pizzaPrice]="price.price" (deletedItem)="onDeleteCart($event)">
+                                [pizzaPrice]="price.price"
+                                (deletedItem)="onDeleteCart($event)">
 
             </app-cart-card-item>
           </div>
@@ -17,21 +18,27 @@
     <div *ngIf="element.drinkId !== 0">
       <div *ngFor="let drink of drinks ">
         <div *ngIf="drink.id == element.drinkId" class="pizza-cart-cart-element">
-          <app-cart-card-item [drink]="drink" [cartElement]="element"></app-cart-card-item>
+          <app-cart-card-item [drink]="drink"
+                              (deletedItem)="onDeleteCart($event)"
+                              [cartElement]="element"></app-cart-card-item>
         </div>
       </div>
     </div>
     <div *ngIf="element.snackId !== 0">
       <div *ngFor="let snack of snacks ">
         <div *ngIf="snack.id == element.snackId" class="pizza-cart-cart-element">
-          <app-cart-card-item [snack]="snack" [cartElement]="element"></app-cart-card-item>
+          <app-cart-card-item [snack]="snack"
+                              (deletedItem)="onDeleteCart($event)"
+                              [cartElement]="element"></app-cart-card-item>
         </div>
       </div>
     </div>
     <div *ngIf="element.dessertId !== 0">
       <div *ngFor="let dessert of desserts ">
         <div *ngIf="dessert.id == element.dessertId" class="pizza-cart-cart-element">
-          <app-cart-card-item [dessert]="dessert" [cartElement]="element"></app-cart-card-item>
+          <app-cart-card-item [dessert]="dessert"
+                              (deletedItem)="onDeleteCart($event)"
+                              [cartElement]="element"></app-cart-card-item>
         </div>
       </div>
     </div>

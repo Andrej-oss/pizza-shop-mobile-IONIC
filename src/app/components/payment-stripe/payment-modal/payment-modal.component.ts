@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {ThemeService} from '../../../../theme/behaviour-subject/theme.service';
 import {ToastrService} from 'ngx-toastr';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {ToasterServiceService} from '../../../services/toaster/toaster-service.service';
 
 @Component({
   selector: 'app-payment-modal',
@@ -27,7 +28,8 @@ export class PaymentModalComponent implements OnInit {
   constructor(private paymentService: PaymentService,
               private userService: UserService,
               private toastrService: ToastrService,
-              private activeModal: NgbActiveModal,
+              public activeModal: NgbActiveModal,
+              private toaster: ToasterServiceService,
               public themeService: ThemeService,
               private router: Router) {
   }
@@ -39,52 +41,58 @@ export class PaymentModalComponent implements OnInit {
   confirm(id: string): void {
     debugger;
     if (!(this.allCart && this.allCart.length)) {
-      // this.purchase = {
-      //   description: this.description,
-      //   name: this.tittle,
-      //   pizzaId: this.pizzaId,
-      //   drinkId: this.drinkId,
-      //   snackId: this.snackId,
-      //   dessertId: this.dessertId,
-      //   price: this.price,
-      //   //userId: this.themeService.data.value.userId,
-      //   volume: typeof this.volume === 'string' ? +this.volume.match(/[0-9]/gi).join('') : this.volume,
-      // };
+      this.purchase = {
+        description: this.description,
+        name: this.tittle,
+        pizzaId: this.pizzaId,
+        drinkId: this.drinkId,
+        snackId: this.snackId,
+        dessertId: this.dessertId,
+        price: this.price,
+        userId: this.themeService.data.value.userId,
+        volume: typeof this.volume === 'string' ? +this.volume.match(/[0-9]/gi).join('') : this.volume,
+      };
       console.log(this.purchase);
       this.paymentService.confirm(id, this.purchase).subscribe(data => {
+          this.activeModal.close();
           // tslint:disable-next-line:no-shadowed-variable
           this.toastrService.success
           ('Your payment is success, thank you', 'Payment success' + data[`id`],
             {positionClass: 'toast-center-center', timeOut: 3000});
+          this.themeService.data.value.message = 'Thank you for a payment';
+          this.toaster.presentToast();
+          this.router.navigate(['/']);
         },
         err => {
           console.log(err);
         }
       );
     } else {
-      // this.paymentService.confirmAllCart(id, this.themeService.data.value.userId, this.allCart)
-      //   .subscribe(data => {
-      //     this.activeModal.close();
-      //     // tslint:disable-next-line:no-shadowed-variable
-      //     this.router.navigate(['/']).then(data => console.log(data));
-      //     this.allCart.forEach(value => {
-      //       this.userActionsService.deletePizzaCartInStore(value.id);
-      //     });
-      //     this.toastrService.success
-      //     ('Your payment is success, thank you', 'Payment success' + data[`id`],
-      //       {positionClass: 'toast-center-center', timeOut: 3000});
-      //   });
+      this.paymentService.confirmAllCart(id, this.themeService.data.value.userId, this.allCart)
+        .subscribe(data => {
+          debugger;
+          this.activeModal.close();
+          // tslint:disable-next-line:no-shadowed-variable
+          this.router.navigate(['/']).then(data => console.log(data));
+          this.themeService.data.value.cartElements = 0;
+          this.toastrService.success
+          ('Your payment is success, thank you', 'Payment success' + data[`id`],
+            {positionClass: 'toast-center-center', timeOut: 3000});
+          this.themeService.data.value.message = 'Thank you for a payment';
+          this.toaster.presentToast();
+          this.router.navigate(['/']);
+        });
     }
   }
 
   cancel(id: string): void {
-    this.paymentService.cancel(id).subscribe(
-      data => {
+    this.paymentService.cancel(id).subscribe(data => {
         this.toastrService.show
-        ('pago cancelado', 'se ha cancelado el pago con id ' + data[`id`], {
+        ('operation cancelled', 'cancelled payment with id ' + data[`id`], {
           positionClass: 'toast-top-center',
           timeOut: 3000
         });
+        this.activeModal.close();
       },
       err => {
         console.log(err);

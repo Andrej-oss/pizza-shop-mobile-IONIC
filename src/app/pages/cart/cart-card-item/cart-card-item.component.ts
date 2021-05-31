@@ -30,12 +30,14 @@ export class CartCardItemComponent implements OnInit {
   urlDrink = 'http://localhost:8080/drink/';
   urlSnack = 'http://localhost:8080/snack/';
   urlDessert = 'http://localhost:8080/dessert/';
+
   constructor(public themeService: ThemeService,
               private userService: UserService,
               private cartService: CartService) {
   }
 
   ngOnInit(): void {
+    debugger;
     this.cartElement.amount !== null ? this.count = this.cartElement.amount : this.count = 1;
     this.price = this.cartElement.price;
     this.pizzaPrice = this.cartElement.price / this.cartElement.amount;
@@ -67,8 +69,7 @@ export class CartCardItemComponent implements OnInit {
         this.cartService.addAmountPizzaCart(this.cartElement.id, this.drink.price).subscribe(data => console.log(data));
         this.price = this.price + this.drink.price;
         this.themeService.data.value.totalPrice = this.themeService.data.value.totalPrice + this.drink.price;
-      }
-      else if (this.snack) {
+      } else if (this.snack) {
         this.cart = {
           id: this.cartElement.id,
           description: this.cartElement.description,
@@ -79,8 +80,7 @@ export class CartCardItemComponent implements OnInit {
         this.cartService.addAmountPizzaCart(this.cartElement.id, this.snack.price).subscribe(data => console.log(data));
         this.price = this.price + this.snack.price;
         this.themeService.data.value.totalPrice = this.themeService.data.value.totalPrice + this.snack.price;
-      }
-      else if (this.dessert) {
+      } else if (this.dessert) {
         this.cart = {
           id: this.cartElement.id,
           description: this.cartElement.description,
@@ -125,8 +125,7 @@ export class CartCardItemComponent implements OnInit {
         this.cartService.removeAmountPizzaCart(this.cartElement.id, this.drink.price).subscribe(data => console.log(data));
         this.price = this.price - this.drink.price;
         this.themeService.data.value.totalPrice = this.themeService.data.value.totalPrice - this.drink.price;
-      }
-      else if (this.snack) {
+      } else if (this.snack) {
         this.cart = {
           id: this.cartElement.id,
           description: this.cartElement.description,
@@ -137,8 +136,7 @@ export class CartCardItemComponent implements OnInit {
         this.cartService.removeAmountPizzaCart(this.cartElement.id, this.snack.price).subscribe(data => console.log(data));
         this.price = this.price - this.snack.price;
         this.themeService.data.value.totalPrice = this.themeService.data.value.totalPrice - this.snack.price;
-      }
-      else if (this.dessert) {
+      } else if (this.dessert) {
         this.cart = {
           id: this.cartElement.id,
           description: this.cartElement.description,
@@ -158,8 +156,8 @@ export class CartCardItemComponent implements OnInit {
   }
 
   onDelete(id: number): void {
+    debugger;
     this.cartService.deleteCart(id).subscribe(data => console.log(data));
-    // todo this.userService.deletePizzaCartInStore(id);
     this.deletedItem.emit(id);
     this.themeService.data.value.totalPrice = this.themeService.data.value.totalPrice - this.cartElement.price;
   }

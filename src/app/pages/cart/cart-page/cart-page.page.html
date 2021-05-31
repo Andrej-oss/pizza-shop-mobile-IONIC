@@ -11,7 +11,9 @@
       <app-cart-card [cartElements]="cartElements"
                      [desserts]="desserts"
                      [pizzas]="pizzas"
-                     [drinks]="drinks" (deletedCartItem)="onDeleteCartItem($event)">
+                     [drinks]="drinks"
+                     [snacks]="snacks"
+                     (deletedCartItem)="onDeleteCartItem($event)">
 
       </app-cart-card>
       <ion-button (click)="onAddressOpen()">Next</ion-button>
@@ -51,9 +53,9 @@
       </ion-card>
     </div>
     </ion-card>
-    <div *ngIf="cartElements > 0">
+    <div *ngIf="cartElements.length > 0">
       <h1>
-        Your cart is empty. Please add pizza to cart.
+        Your cart is empty.
       </h1>
     </div>
   </div>

@@ -48,6 +48,7 @@ export class CartCardComponent implements OnInit {
   }
 
   onDeleteCart(id: number): void{
+    debugger;
     this.deletedCartItem.emit(id);
   }
 }

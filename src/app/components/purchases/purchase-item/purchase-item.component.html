@@ -7,12 +7,6 @@
         {{row}}
       </th>
       </tr>
-<!--      <tr>-->
-<!--        <td *ngFor=""-->
-<!--            [style]="this.themeService.data.value.isDarkTheme  ? blackColor : whiteColor"> {{i + 1}}-->
-<!--        </td>-->
-<!--      </tr>-->
-<!--    <div *ngFor="let element of purchasesUser; let i = index">-->
       <tr *ngFor="let element of purchasesUser; let i = index">
         <th>
         <app-purchase-item-card [pizzaId]="element.pizzaId"
@@ -54,25 +48,21 @@
         <th [style]="this.themeService.data.value.isDarkTheme  ? blackColor : whiteColor">
           <div>
             <div class="purchase-item-table-delete">
-              <button (click)="onDelete(element.id)">
-                delete
-              </button>
+              <ion-icon
+                (click)="onDelete(element.id)"
+                name="trash-outline"></ion-icon>
             </div>
 
-            <div class="purchases-add-cart" *ngIf="isUser">
-              <!--          <ion-button class="material-icons"-->
-              <!--                style="margin-left: 70%"-->
-              <!--                (click)="saveInCart(element.pizzaId,-->
-              <!--                 element.drinkId,-->
-              <!--                 element.dessertId,-->
-              <!--                 element.description,-->
-              <!--                  element.name,-->
-              <!--                   element.amount,-->
-              <!--                   element.price,-->
-              <!--                   element.volume)">-->
-              <!--&lt;!&ndash;            changed up element.value&ndash;&gt;-->
-              <!--              add_shopping_cart-->
-              <!--          </ion-button>-->
+            <div class="purchases-add-cart">
+              <ion-icon name="cart-outline"
+                        (click)="saveInCart(element.pizzaId,
+                               element.drinkId,
+                               element.dessertId,
+                               element.description,
+                                element.name,
+                                 element.amount,
+                                 element.price,
+                                 +element.volume)"></ion-icon>
             </div>
           </div>
         </th>

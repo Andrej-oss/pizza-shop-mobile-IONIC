@@ -1,0 +1,15 @@
+.dessert-sheet{
+padding: 5% 5% 5% 5%;
+ &-content{
+   &-image{
+     width: 200px;
+     margin: 10% 0% 10% 20%;
+     border-radius: 50%;
+   }
+   &-text{
+     font-size: 14px;
+   }
+ }
+}
+
+

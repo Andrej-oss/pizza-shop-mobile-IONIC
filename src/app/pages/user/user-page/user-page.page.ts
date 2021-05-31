@@ -76,4 +76,7 @@ export class UserPagePage implements OnInit {
     this.isUserInfoOpen = false;
   }
 
+  deletePurchase(id: number): void{
+    this.purchases = this.purchases.filter(value => value.id !== id);
+  }
 }

@@ -10,7 +10,7 @@ ion-menu.md ion-content {
 }
 
 ion-menu.md ion-list {
-  padding: 20px 0;
+  padding: 0px 0;
 }
 
 ion-menu.md ion-note {
@@ -70,7 +70,7 @@ ion-menu.ios ion-content {
 }
 
 ion-menu.ios ion-list {
-  padding: 20px 0 0 0;
+  padding: 0px 0 0 0;
 }
 
 ion-menu.ios ion-note {
@@ -116,4 +116,12 @@ ion-note {
 
 ion-item.selected {
   --color: var(--ion-color-primary);
+}
+.pizza-shop-logo{
+  border-radius: 50%;
+  width: 100px;
+}
+.pizza-shop-settings{
+  display: flex;
+  justify-content: space-between;
 }

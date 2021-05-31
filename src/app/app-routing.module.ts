@@ -18,11 +18,11 @@ const routes: Routes = [
   },
   {
     path: 'drinks',
-    loadChildren: () => import('./pages/drinks/drinks.module').then( m => m.DrinksPageModule)
+    loadChildren: () => import('./pages/drinks/drink-page/drinks.module').then(m => m.DrinksPageModule)
   },
   {
     path: 'snack',
-    loadChildren: () => import('./pages/snack/snack.module').then( m => m.SnackPageModule)
+    loadChildren: () => import('./pages/snack/snack-page/snack.module').then(m => m.SnackPageModule)
   },
   {
     path: 'dessert',
@@ -54,12 +54,16 @@ const routes: Routes = [
     loadChildren: () => import('./pages/user/user-page/user-page.module').then( m => m.UserPagePageModule), canActivate: [UserPageGuardGuard]
   },
   {
-    path: 'dessert-edtail',
-    loadChildren: () => import('./pages/dessert/dessert-edtail/dessert-edtail.module').then( m => m.DessertEdtailPageModule)
+    path: 'dessert/:id',
+    loadChildren: () => import('./pages/dessert/dessert-detail/dessert-detail.module').then( m => m.DessertDetailPageModule)
   },
   {
-    path: 'dessert-detail',
-    loadChildren: () => import('./pages/dessert/dessert-detail/dessert-detail.module').then( m => m.DessertDetailPageModule)
+    path: 'drink/:id',
+    loadChildren: () => import('./pages/drinks/drink-detail/drink-detail.module').then( m => m.DrinkDetailPageModule)
+  },
+  {
+    path: 'snack/:id',
+    loadChildren: () => import('./pages/snack/snack-detail/snack-detail.module').then( m => m.SnackDetailPageModule)
   },
 ];
 

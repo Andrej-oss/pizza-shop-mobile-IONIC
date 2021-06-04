@@ -5,7 +5,7 @@ import {UserPageGuardGuard} from './components/guards/user-page-guard/user-page-
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'folder/Inbox',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
   {
@@ -64,6 +64,10 @@ const routes: Routes = [
   {
     path: 'snack/:id',
     loadChildren: () => import('./pages/snack/snack-detail/snack-detail.module').then( m => m.SnackDetailPageModule)
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./pages/home-page/home-page.module').then( m => m.HomePagePageModule)
   },
 ];
 

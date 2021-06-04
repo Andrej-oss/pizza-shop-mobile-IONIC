@@ -16,6 +16,10 @@ const sizeURL = `${APi}` + 'size';
 const snackURL = `${APi}` + 'snack';
 const userURL = `${APi}` + 'user';
 const voiceURL = `${APi}` + 'voice/';
+const pizzaImage = `${APi}` + 'pizza/image/';
+const dessertImage = `${APi}` + 'dessert/';
+const drinkImage = `${APi}` + 'drink/';
+const snackImage = `${APi}` + 'snack/';
 
 export const APiURL = {
   avatarURL,
@@ -32,5 +36,9 @@ export const APiURL = {
   sizeURL,
   snackURL,
   userURL,
-  voiceURL
+  voiceURL,
+  pizzaImage,
+  dessertImage,
+  drinkImage,
+  snackImage,
 };

@@ -17,7 +17,8 @@
           </div>
         </div>
         <ion-list id="inbox-list">
-          <ion-list-header [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
+          <ion-list-header  (click)="onHomePage()"
+            [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
             <img src="./assets/pzza-shop.png" class="pizza-shop-logo">
             Pizza Shop
           </ion-list-header>
@@ -120,6 +121,7 @@
         </ion-fab>
       </ion-content>
     </ion-menu>
-    <ion-router-outlet id="main-content"></ion-router-outlet>
+    <ion-router-outlet id="main-content">
+    </ion-router-outlet>
   </ion-split-pane>
 </ion-app>

@@ -3,6 +3,7 @@ import {DessertService} from '../../../services/dessertDao/dessert.service';
 import {Dessert} from '../../../models/Dessert';
 import {Router} from '@angular/router';
 import {ThemeService} from '../../../../theme/behaviour-subject/theme.service';
+import {APiURL} from '../../../config/configURL';
 
 @Component({
   selector: 'app-dessert',
@@ -11,7 +12,7 @@ import {ThemeService} from '../../../../theme/behaviour-subject/theme.service';
 })
 export class DessertPage implements OnInit {
 desserts: Dessert[];
-  url = 'http://localhost:8080/dessert/';
+  url = APiURL.dessertImage;
   constructor(private dessertService: DessertService,
               public themeService: ThemeService,
               private router: Router) { }

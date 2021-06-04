@@ -34,4 +34,8 @@ export class AppComponent {
   onDarkTheme(): void{
     this.themeService.data.value.isDarkTheme = !this.themeService.data.value.isDarkTheme;
   }
+
+  onHomePage(): void{
+    this.router.navigate(['home']);
+  }
 }

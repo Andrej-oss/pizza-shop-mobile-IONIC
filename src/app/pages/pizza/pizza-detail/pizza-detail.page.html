@@ -35,17 +35,12 @@
       <div class="pizza-details-content-ingredients">
         <div *ngFor="let ingredient of themeService.data.value.ingredientsPizza">
           <div *ngFor="let ing of themeService.data.value.ingredients">
-            <div *ngIf="ingredient.id === +ing">
+            <ion-card *ngIf="ingredient.id === +ing">
               <app-ingredient
                 (click)="onAddClick(ingredient.name, ingredient.price)"
                 [ingredient]="ingredient">
               </app-ingredient>
-              <ion-buttons slot="start">
-                <ion-icon slot="start" name="mail"></ion-icon>
-                <ion-badge color="danger" style="position: absolute; right: -5px; top: -3px;">3
-                </ion-badge>
-              </ion-buttons>
-            </div>
+            </ion-card>
           </div>
         </div>
       </div>

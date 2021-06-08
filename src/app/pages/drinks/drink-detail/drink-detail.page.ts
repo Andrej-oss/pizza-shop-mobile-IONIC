@@ -27,6 +27,7 @@ export class DrinkDetailPage implements OnInit {
               private cartService: CartService,
               private drinkService: DrinkService,
               private toaster: ToasterServiceService,
+              private userService: UserService,
               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -45,11 +46,16 @@ export class DrinkDetailPage implements OnInit {
       userId: this.themeService.data.value.userId,
       volume: drink.volume,
     };
-    this.themeService.data.value.message = 'Drink added to cart';
-    this.cartService.savePizzaInCart(this.cart).subscribe(data => {
-      this.themeService.data.value.cartElements = data.length;
-      this.toaster.presentToast();
-    });
+    if (!this.userService.isAuthenticated()){
+      this.userService.saveCartInLocalStorage(this.cart);
+      this.themeService.data.value.message = 'Drink added to cart';
+    }else if (!!this.userService.isAuthenticated()) {
+      this.themeService.data.value.message = 'Drink added to cart';
+      this.cartService.savePizzaInCart(this.cart).subscribe(data => {
+        this.themeService.data.value.cartElements = data.length;
+        this.toaster.presentToast();
+      });
+    }
   }
 
   openPayment(drink: Drink): void{

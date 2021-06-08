@@ -12,6 +12,7 @@ import {CartService} from '../../../services/cartDao/cart.service';
 import {ThemeService} from '../../../../theme/behaviour-subject/theme.service';
 import {AvatarService} from '../../../services/avatarDao/avatar.service';
 import {ToasterServiceService} from '../../../services/toaster/toaster-service.service';
+import {Cart} from '../../../models/Cart';
 
 @Component({
   selector: 'app-user-auth',
@@ -33,6 +34,7 @@ export class UserAuthPage implements OnInit, OnDestroy {
   drinks: Drink[];
   snacks: Snack[];
   desserts: Dessert[];
+  cartElements: Cart[];
 
   constructor(private userService: UserService,
               private router: Router,
@@ -64,6 +66,10 @@ export class UserAuthPage implements OnInit, OnDestroy {
     if (this.themeService.data.value.userId !== 0) {
       this.authForm.enable();
     }
+    this.cartElements = [];
+    if (!this.userService.isAuthenticated()){
+      this.cartElements = this.cartService.getCartFromLocalStorage();
+    }
   }
   getAuthenticateUser(user: {username: string, password: string}): any{
     return new Promise(resolve => {
@@ -81,13 +87,25 @@ export class UserAuthPage implements OnInit, OnDestroy {
     this.authForm.disable();
     this.userService
       .authenticateUser({username: authForm.controls.username.value, password: authForm.controls.password.value})
-      .pipe(switchMap(data1 => {
-           this.userService.getUserByName(data1.username);
-           return this.userService.getUserByName(data1.username);
+      .pipe(switchMap(data => {
+          this.userService.getUserByName(data.username);
+          return this.userService.getUserByName(data.username);
+        }),
+        tap(data1 => {
+          if (this.cartElements.length) {
+            this.cartElements.forEach(value => {
+              this.themeService.data.value.userId = data1.id;
+              this.cartService.deleteCartElementFromLocalStorage(value.description);
+              return this.cartService.savePizzaInCart(value).subscribe(value1 => console.log(value1));
+            });
+          }
         }),
         tap(data2 => this.cartService.getAllCartsElements(data2.id)
           // tslint:disable-next-line:no-shadowed-variable
-          .subscribe(data2 => this.themeService.data.value.cartElements = data2.length)))
+          .subscribe(data2 => {
+            this.themeService.data.value.cartElements = data2.length;
+          }))
+      )
           .subscribe((data) => {
           this.error = null;
           this.router.navigate(['/']);

@@ -7,6 +7,7 @@ import {Dessert} from '../../../models/Dessert';
 import {ThemeService} from '../../../../theme/behaviour-subject/theme.service';
 import {UserService} from '../../../services/userDao/user.service';
 import {CartService} from '../../../services/cartDao/cart.service';
+import {APiURL} from '../../../config/configURL';
 
 @Component({
   selector: 'app-cart-card-item',
@@ -22,14 +23,14 @@ export class CartCardItemComponent implements OnInit {
   @Input() dessert: Dessert;
   @Input() pizzaPrice: number;
   @Output()
-  deletedItem: EventEmitter<number> = new EventEmitter<number>();
-  url = 'http://localhost:8080/pizza/image/';
+  deletedItem: EventEmitter<any> = new EventEmitter<any>();
+  url = APiURL.pizzaImage;
   count: number;
   price: number;
   cart: Cart;
-  urlDrink = 'http://localhost:8080/drink/';
-  urlSnack = 'http://localhost:8080/snack/';
-  urlDessert = 'http://localhost:8080/dessert/';
+  urlDrink = APiURL.drinkImage;
+  urlSnack = APiURL.snackImage;
+  urlDessert = APiURL.dessertImage;
 
   constructor(public themeService: ThemeService,
               private userService: UserService,
@@ -37,7 +38,6 @@ export class CartCardItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    debugger;
     this.cartElement.amount !== null ? this.count = this.cartElement.amount : this.count = 1;
     this.price = this.cartElement.price;
     this.pizzaPrice = this.cartElement.price / this.cartElement.amount;
@@ -54,7 +54,11 @@ export class CartCardItemComponent implements OnInit {
           amount: this.cartElement.amount + 1,
           size: this.cartElement.size
         };
-        this.cartService.addAmountPizzaCart(this.cartElement.id, this.pizza.price).subscribe(data => console.log(data));
+        if (this.userService.isAuthenticated()) {
+          this.cartService.addAmountPizzaCart(this.cartElement.id, this.pizza.price).subscribe(data => console.log(data));
+        }else if (!this.userService.isAuthenticated()){
+          this.cart = this.cartService.onIncCartElementInLocalStorage(this.cart.description, this.pizzaPrice);
+        }
         this.price = this.price + this.pizzaPrice;
         this.themeService.data.value.totalPrice = this.themeService.data.value.totalPrice + this.pizzaPrice;
       } else if (this.drink) {
@@ -66,8 +70,11 @@ export class CartCardItemComponent implements OnInit {
           price: this.cartElement.price + this.drink.price,
           amount: this.cartElement.amount + 1,
         };
-        this.cartService.addAmountPizzaCart(this.cartElement.id, this.drink.price).subscribe(data => console.log(data));
-        this.price = this.price + this.drink.price;
+        if (this.userService.isAuthenticated()) {
+          this.cartService.addAmountPizzaCart(this.cartElement.id, this.pizza.price).subscribe(data => console.log(data));
+        }else if (!this.userService.isAuthenticated()){
+          this.cart = this.cartService.onIncCartElementInLocalStorage(this.cart.description, this.pizzaPrice);
+        }   this.price = this.price + this.drink.price;
         this.themeService.data.value.totalPrice = this.themeService.data.value.totalPrice + this.drink.price;
       } else if (this.snack) {
         this.cart = {
@@ -77,8 +84,11 @@ export class CartCardItemComponent implements OnInit {
           price: this.cartElement.price + this.snack.price,
           amount: this.cartElement.amount + 1,
         };
-        this.cartService.addAmountPizzaCart(this.cartElement.id, this.snack.price).subscribe(data => console.log(data));
-        this.price = this.price + this.snack.price;
+        if (this.userService.isAuthenticated()) {
+          this.cartService.addAmountPizzaCart(this.cartElement.id, this.pizza.price).subscribe(data => console.log(data));
+        }else if (!this.userService.isAuthenticated()){
+          this.cart = this.cartService.onIncCartElementInLocalStorage(this.cart.description, this.pizzaPrice);
+        }  this.price = this.price + this.snack.price;
         this.themeService.data.value.totalPrice = this.themeService.data.value.totalPrice + this.snack.price;
       } else if (this.dessert) {
         this.cart = {
@@ -88,7 +98,11 @@ export class CartCardItemComponent implements OnInit {
           price: this.cartElement.price + this.dessert.price,
           amount: this.cartElement.amount + 1,
         };
-        this.cartService.addAmountPizzaCart(this.cartElement.id, this.dessert.price).subscribe(data => console.log(data));
+        if (this.userService.isAuthenticated()) {
+          this.cartService.addAmountPizzaCart(this.cartElement.id, this.pizza.price).subscribe(data => console.log(data));
+        }else if (!this.userService.isAuthenticated()){
+          this.cart = this.cartService.onIncCartElementInLocalStorage(this.cart.description, this.pizzaPrice);
+        }
         this.price = this.price + this.dessert.price;
         this.themeService.data.value.totalPrice = this.themeService.data.value.totalPrice + this.dessert.price;
       }
@@ -110,7 +124,11 @@ export class CartCardItemComponent implements OnInit {
           amount: this.cartElement.amount - 1,
           size: this.cartElement.size
         };
-        this.cartService.removeAmountPizzaCart(this.cartElement.id, this.pizza.price).subscribe(data => console.log(data));
+        if (this.userService.isAuthenticated()) {
+          this.cartService.removeAmountPizzaCart(this.cartElement.id, this.pizza.price).subscribe(data => console.log(data));
+        }else if (!this.userService.isAuthenticated()){
+          this.cartService.onDecCartElementInLocalStorage(this.cart.description, this.pizzaPrice);
+        }
         this.price = this.price - this.pizza.price;
         this.themeService.data.value.totalPrice = this.themeService.data.value.totalPrice - this.pizzaPrice;
       } else if (this.drink) {
@@ -122,8 +140,11 @@ export class CartCardItemComponent implements OnInit {
           price: this.cartElement.price - this.drink.price,
           amount: this.cartElement.amount - 1,
         };
-        this.cartService.removeAmountPizzaCart(this.cartElement.id, this.drink.price).subscribe(data => console.log(data));
-        this.price = this.price - this.drink.price;
+        if (this.userService.isAuthenticated()) {
+          this.cartService.removeAmountPizzaCart(this.cartElement.id, this.pizza.price).subscribe(data => console.log(data));
+        }else if (!this.userService.isAuthenticated()){
+          this.cartService.onDecCartElementInLocalStorage(this.cart.description, this.pizzaPrice);
+        }  this.price = this.price - this.drink.price;
         this.themeService.data.value.totalPrice = this.themeService.data.value.totalPrice - this.drink.price;
       } else if (this.snack) {
         this.cart = {
@@ -133,8 +154,11 @@ export class CartCardItemComponent implements OnInit {
           price: this.cartElement.price - this.snack.price,
           amount: this.cartElement.amount - 1,
         };
-        this.cartService.removeAmountPizzaCart(this.cartElement.id, this.snack.price).subscribe(data => console.log(data));
-        this.price = this.price - this.snack.price;
+        if (this.userService.isAuthenticated()) {
+          this.cartService.removeAmountPizzaCart(this.cartElement.id, this.pizza.price).subscribe(data => console.log(data));
+        }else if (!this.userService.isAuthenticated()){
+          this.cartService.onDecCartElementInLocalStorage(this.cart.description, this.pizzaPrice);
+        }   this.price = this.price - this.snack.price;
         this.themeService.data.value.totalPrice = this.themeService.data.value.totalPrice - this.snack.price;
       } else if (this.dessert) {
         this.cart = {
@@ -144,8 +168,11 @@ export class CartCardItemComponent implements OnInit {
           price: this.cartElement.price - this.dessert.price,
           amount: this.cartElement.amount - 1,
         };
-        this.cartService.removeAmountPizzaCart(this.cartElement.id, this.dessert.price).subscribe(data => console.log(data));
-        this.price = this.price - this.dessert.price;
+        if (this.userService.isAuthenticated()) {
+          this.cartService.removeAmountPizzaCart(this.cartElement.id, this.pizza.price).subscribe(data => console.log(data));
+        }else if (!this.userService.isAuthenticated()){
+          this.cartService.onDecCartElementInLocalStorage(this.cart.description, this.pizzaPrice);
+        }   this.price = this.price - this.dessert.price;
         this.themeService.data.value.totalPrice = this.themeService.data.value.totalPrice - this.dessert.price;
       }
       // todo this.userService.decAmountPizzaCartInStore(this.cartElement.id, this.cart);
@@ -155,10 +182,14 @@ export class CartCardItemComponent implements OnInit {
     }
   }
 
-  onDelete(id: number): void {
-    debugger;
-    this.cartService.deleteCart(id).subscribe(data => console.log(data));
-    this.deletedItem.emit(id);
+  onDelete(id: number, description: string): void {
+    console.log(id, description);
+    if (this.userService.isAuthenticated()) {
+      this.cartService.deleteCart(id).subscribe(data => console.log(data));
+      this.deletedItem.emit(id);
+    }else {
+      this.deletedItem.emit(description);
+    }
     this.themeService.data.value.totalPrice = this.themeService.data.value.totalPrice - this.cartElement.price;
   }
 

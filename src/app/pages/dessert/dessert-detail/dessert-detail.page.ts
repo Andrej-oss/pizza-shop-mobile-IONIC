@@ -46,12 +46,17 @@ export class DessertDetailPage implements OnInit {
       userId: this.themeService.data.value.userId,
       volume: +dessert.volume.match(/[0-9]/gi).join('') + 0.00,
     };
-    this.cartService.savePizzaInCart(this.cart).subscribe(data => {
-      this.cartElements = data;
-      this.themeService.data.value.cartElements = data.length;
+    if (!this.userService.isAuthenticated()){
+      this.userService.saveCartInLocalStorage(this.cart);
       this.themeService.data.value.message = 'Dessert added to cart';
-      this.toaster.presentToast();
-    });
+    }else if (!!this.userService.isAuthenticated()) {
+      this.cartService.savePizzaInCart(this.cart).subscribe(data => {
+        this.cartElements = data;
+        this.themeService.data.value.cartElements = data.length;
+        this.themeService.data.value.message = 'Dessert added to cart';
+        this.toaster.presentToast();
+      });
+    }
   }
 
   openPayment(dessert: Dessert): void{

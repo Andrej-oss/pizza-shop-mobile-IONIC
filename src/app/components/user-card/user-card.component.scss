@@ -1,5 +1,7 @@
 .user-card-avatar-buttons{
-  position: fixed;
-  left: 40%;
-  top: 0%;
+  position: relative;
+  left: 120px;
+  top: -40px;
+  display: flex;
+  justify-content: start;
 }

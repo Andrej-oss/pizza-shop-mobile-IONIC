@@ -1,10 +1,10 @@
 <div class="pizza-cart-cart"
      [style]="themeService.data.value.isDarkTheme ? 'background-color: black; color: white' : 'background-color: white; color: black'">
   <div *ngFor="let element of cartElements">
-    <div *ngIf="element.pizzaId !== 0">
+    <div *ngIf="+element.pizzaId !== 0">
       <div *ngFor="let pizza of pizzas ">
         <div *ngFor="let price of pizzasPrise">
-          <div *ngIf="pizza.id === element.pizzaId && element.id === price.id" class="pizza-cart-cart-element">
+          <div *ngIf="pizza.id === +element.pizzaId && element.id === price.id" class="pizza-cart-cart-element">
             <app-cart-card-item [pizza]="pizza"
                                 [cartElement]="element"
                                 [pizzaPrice]="price.price"

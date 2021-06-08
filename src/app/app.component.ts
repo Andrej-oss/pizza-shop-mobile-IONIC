@@ -3,22 +3,34 @@ import {ThemeService} from '../theme/behaviour-subject/theme.service';
 import {Router} from '@angular/router';
 import {UserService} from './services/userDao/user.service';
 import {ToasterServiceService} from './services/toaster/toaster-service.service';
+import {APiURL} from './config/configURL';
+import {Cart} from './models/Cart';
+import {CartService} from './services/cartDao/cart.service';
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  avatarUrl = 'http://localhost:8080/avatar/image/';
+  avatarUrl = APiURL.avatarImage;
   avatarUser: string;
+  cartElements: Cart[] = [];
 
   constructor(public themeService: ThemeService,
               private toaster: ToasterServiceService,
+              private cartService: CartService,
               private userService: UserService,
               private router: Router) {
     this.themeService.data.value.avatar
       ? this.avatarUser =  this.themeService.data.value.avatar.path
       : this.avatarUser = '';
+    if (!userService.isAuthenticated()){
+      const cartFromLocalStorage = this.cartService.getCartFromLocalStorage();
+      if (cartFromLocalStorage.length){
+        this.cartElements = cartFromLocalStorage;
+      }
+      this.themeService.data.value.cartElements = this.cartElements.length;
+    }
   }
 
   onUserPage(): void{

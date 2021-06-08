@@ -13,6 +13,7 @@ import {Cart} from '../../../models/Cart';
 import {CartService} from '../../../services/cartDao/cart.service';
 import {ToasterServiceService} from '../../../services/toaster/toaster-service.service';
 import {Pizza} from '../../../models/Pizza';
+import {UserService} from '../../../services/userDao/user.service';
 
 @Component({
   selector: 'app-pizza-detail',
@@ -37,6 +38,7 @@ export class PizzaDetailPage implements OnInit {
               private cartService: CartService,
               private ingredientService: IngredientService,
               private toaster: ToasterServiceService,
+              private userService: UserService,
               public themeService: ThemeService,
               private ratingService: RatingService,
               private commentService: CommentService,
@@ -152,10 +154,15 @@ export class PizzaDetailPage implements OnInit {
       userId: this.themeService.data.value.userId,
       size: this.sizePizza.size ? this.sizePizza.size : SizePizza.SMALL,
     };
-    this.cartService.savePizzaInCart(this.cart).subscribe(data => {
+    if (this.userService.isAuthenticated()) {
+      this.cartService.savePizzaInCart(this.cart).subscribe(data => {
+        this.themeService.data.value.message = 'Pizza added to cart';
+        this.toaster.presentToast();
+        this.themeService.data.value.cartElements += 1;
+      });
+    }else {
       this.themeService.data.value.message = 'Pizza added to cart';
-      this.toaster.presentToast();
-    });
-    this.themeService.data.value.cartElements += 1;
+      this.userService.saveCartInLocalStorage(this.cart);
+    }
   }
 }

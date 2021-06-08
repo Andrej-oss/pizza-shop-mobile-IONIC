@@ -3,6 +3,7 @@ import {User} from '../../models/User';
 import {ThemeService} from '../../../theme/behaviour-subject/theme.service';
 import {UserService} from '../../services/userDao/user.service';
 import {AvatarService} from '../../services/avatarDao/avatar.service';
+import {APiURL} from '../../config/configURL';
 
 @Component({
   selector: 'app-user-card',
@@ -11,7 +12,7 @@ import {AvatarService} from '../../services/avatarDao/avatar.service';
 })
 export class UserCardComponent implements OnInit {
   user: User;
-  avatarUrl = 'http://localhost:8080/avatar/image/';
+  avatarUrl = APiURL.avatarImage;
   isAvatarOpen: boolean;
   image: File;
   userFormData: FormData = new FormData();

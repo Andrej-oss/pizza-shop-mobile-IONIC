@@ -21,9 +21,7 @@
             {{dessert.description}}
           </ion-card-content>
           <div>
-            <ion-button
-                    (click)="saveDessertInCart(dessert)"
-                    [disabled]="!themeService.data.value.userName.length">
+            <ion-button (click)="saveDessertInCart(dessert)">
               Add to cart
             </ion-button>
             <ion-button

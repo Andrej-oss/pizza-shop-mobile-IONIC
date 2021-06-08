@@ -3,7 +3,7 @@
   <div *ngIf="pizza">
     <img [src]="url+pizza.path" class="pizza-cart-card-item-image">
     <ion-icon class="pizza-cart-card-item-delete"
-              (click)="onDelete(cartElement.id)"
+              (click)="onDelete(cartElement.id, cartElement.description)"
               slot="end"
               size="large"
               name="trash-outline"></ion-icon>
@@ -41,7 +41,7 @@
   <div>
     <img [src]="urlDrink + drink.path" class="pizza-cart-card-item-image">
     <ion-icon class="pizza-cart-card-item-delete"
-              (click)="onDelete(cartElement.id)"
+              (click)="onDelete(cartElement.id,cartElement.description)"
               slot="end"
               size="large"
               name="trash-outline"></ion-icon>
@@ -76,7 +76,7 @@
   <div>
     <img [src]="urlSnack + snack.path" class="pizza-cart-card-item-image">
     <ion-icon class="pizza-cart-card-item-delete"
-              (click)="onDelete(cartElement.id)"
+              (click)="onDelete(cartElement.id,cartElement.description)"
               slot="end"
               size="large"
               name="trash-outline"></ion-icon>
@@ -111,7 +111,7 @@
   <div>
     <img [src]="urlDessert + dessert.path" class="pizza-cart-card-item-image">
     <ion-icon class="pizza-cart-card-item-delete"
-              (click)="onDelete(cartElement.id)"
+              (click)="onDelete(cartElement.id,cartElement.description)"
               slot="end"
               size="large"
               name="trash-outline"></ion-icon>

@@ -6,6 +6,7 @@ import {ToasterServiceService} from '../../../services/toaster/toaster-service.s
 import {ActivatedRoute} from '@angular/router';
 import {SnackService} from '../../../services/snackDao/snack.service';
 import {Snack} from '../../../models/Snack';
+import {UserService} from '../../../services/userDao/user.service';
 
 @Component({
   selector: 'app-snack-detail',
@@ -22,6 +23,7 @@ export class SnackDetailPage implements OnInit {
   snackId: number;
   constructor(public themeService: ThemeService,
               private cartService: CartService,
+              private userService: UserService,
               private snackService: SnackService,
               private toaster: ToasterServiceService,
               private route: ActivatedRoute) { }
@@ -43,10 +45,14 @@ export class SnackDetailPage implements OnInit {
       volume: +snack.volume.match(/[0-9]/gi).join('') + 0.00,
     };
     this.themeService.data.value.message = 'Snack added to cart';
-    this.cartService.savePizzaInCart(this.cart).subscribe(data => {
-      this.themeService.data.value.cartElements = data.length;
-      this.toaster.presentToast();
-    });
+    if (this.userService.isAuthenticated()) {
+      this.cartService.savePizzaInCart(this.cart).subscribe(data => {
+        this.themeService.data.value.cartElements = data.length;
+        this.toaster.presentToast();
+      });
+    }else if (!this.userService.isAuthenticated()){
+      this.userService.saveCartInLocalStorage(this.cart);
+    }
   }
 
   openPayment(snack: Snack): void{

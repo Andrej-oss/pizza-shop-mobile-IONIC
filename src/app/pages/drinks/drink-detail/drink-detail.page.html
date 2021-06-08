@@ -19,8 +19,7 @@
           </ion-card-subtitle>
           <div>
             <ion-button
-              (click)="saveDrinkInCart(drink)"
-              [disabled]="!themeService.data.value.userName.length">
+              (click)="saveDrinkInCart(drink)">
               Add to cart for {{drink.price}}
             </ion-button>
             <ion-button

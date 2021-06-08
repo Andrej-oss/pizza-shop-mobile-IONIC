@@ -1,4 +1,6 @@
-<ion-card *ngIf="!!user">
+<ion-card
+  [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'"
+  *ngIf="!!user">
   <ion-avatar>
     <div *ngIf="!themeService.data.value.avatar">
       <img src="../../../assets/icon/user-icon.jpg">
@@ -12,8 +14,13 @@
         <ion-button (click)="onSaveAvatar(user.id)">
           save avatar
         </ion-button>
+        <ion-button (click)="onOpenAvatarChange()">
+          {{isAvatarOpen ? "hide" : "change avatar"}}
+        </ion-button>
       </a>
-      <ion-button (click)="onOpenAvatarChange()">{{isAvatarOpen ? "hide" : "change avatar"}}</ion-button>
+      <ion-button (click)="onOpenAvatarChange()">
+        {{isAvatarOpen ? "hide" : "change avatar"}}
+      </ion-button>
     </a>
   </ion-avatar>
   <ion-card-title>

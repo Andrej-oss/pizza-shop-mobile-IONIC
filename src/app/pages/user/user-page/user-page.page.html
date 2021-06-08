@@ -1,20 +1,15 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
     <ion-title>user-page</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <div class="user-card-menu">
+<ion-content [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
+  <ion-card
+    [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
     <div class="example-sidenav">
-      <p *ngIf="user">
-        {{user.username}}
-      </p>
-      <div *ngIf="isUserInfoOpen">
-        <app-user-card></app-user-card>
-      </div>
       <ion-button (click)="onUserUpdate()">
-        Administrating Profile
+       Profile
       </ion-button>
       <ion-button (click)="onBasket()">
         Cart
@@ -34,6 +29,12 @@
         </app-purchase-item>
       </div>
     </div>
-  </div>
+    <p *ngIf="user">
+      {{user.username}}
+    </p>
+    <div *ngIf="isUserInfoOpen">
+      <app-user-card></app-user-card>
+    </div>
+  </ion-card>
 
 </ion-content>

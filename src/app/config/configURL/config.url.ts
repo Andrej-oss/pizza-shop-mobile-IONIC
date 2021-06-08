@@ -3,7 +3,7 @@ import {environment} from '../../../environments/environment';
 const APi = environment.ApiV1;
 const avatarURL = `${APi}` + 'avatar';
 const cartURL = `${APi}` + 'cart';
-const commentURL = `${APi}` + 'comment';
+const commentURL = `${APi}` + 'comment/';
 const dessertURL = `${APi}` + 'dessert';
 const drinkURL = `${APi}` + 'drink';
 const ingredientURL = `${APi}` + 'ingredient';
@@ -20,6 +20,8 @@ const pizzaImage = `${APi}` + 'pizza/image/';
 const dessertImage = `${APi}` + 'dessert/';
 const drinkImage = `${APi}` + 'drink/';
 const snackImage = `${APi}` + 'snack/';
+const avatarImage = `${APi}` + 'avatar/image/';
+const localStorageKey = 'PizzaShopCart';
 
 export const APiURL = {
   avatarURL,
@@ -41,4 +43,6 @@ export const APiURL = {
   dessertImage,
   drinkImage,
   snackImage,
+  avatarImage,
+  localStorageKey
 };

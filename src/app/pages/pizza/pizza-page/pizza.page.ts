@@ -6,6 +6,7 @@ import {ThemeService} from '../../../../theme/behaviour-subject/theme.service';
 import {IngredientService} from '../../../services/ingredientDao/ingredient.service';
 import {AvatarService} from '../../../services/avatarDao/avatar.service';
 import {CommentService} from '../../../services/commentDao/comment.service';
+import {APiURL} from '../../../config/configURL';
 
 @Component({
   selector: 'app-pizza',
@@ -15,7 +16,7 @@ import {CommentService} from '../../../services/commentDao/comment.service';
 export class PizzaPage implements OnInit {
   pizzas: Pizza[];
   pizza: Pizza;
-  url = 'http://localhost:8080/pizza/image/';
+  url = APiURL.pizzaImage;
   constructor(private pizzaService: PizzaService,
               public themeService: ThemeService,
               private commentService: CommentService,

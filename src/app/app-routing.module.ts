@@ -1,16 +1,12 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import {UserPageGuardGuard} from './components/guards/user-page-guard/user-page-guard.guard';
+import {UserPageGuardGuard} from './services/guards/user-page-guard/user-page-guard.guard';
 
 const routes: Routes = [
   {
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
-  },
-  {
-    path: 'folder/:id',
-    loadChildren: () => import('./folder/folder.module').then( m => m.FolderPageModule)
   },
   {
     path: 'pizza',
@@ -51,6 +47,7 @@ const routes: Routes = [
   },
   {
     path: 'user-page',
+    // tslint:disable-next-line:max-line-length
     loadChildren: () => import('./pages/user/user-page/user-page.module').then( m => m.UserPagePageModule), canActivate: [UserPageGuardGuard]
   },
   {

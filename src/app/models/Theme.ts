@@ -8,6 +8,7 @@ import {Pizza} from './Pizza';
 export interface Theme {
   userId: number;
   userName: string;
+  usersPizzaRating: Rating[];
   avatar: Avatar;
   principle: User;
   totalPrice: number;

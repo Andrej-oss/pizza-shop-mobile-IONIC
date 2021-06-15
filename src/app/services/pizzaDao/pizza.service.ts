@@ -18,6 +18,9 @@ export class PizzaService {
   getAllPizza(): Observable<Pizza[]> {
     return this.httpClient.get<Pizza[]>(this.baseUrl);
   }
+  getPizza(id: number): Observable<Pizza>{
+    return this.httpClient.get<Pizza>(this.baseUrl + `/${id}`);
+  }
   getSortedPizzas(page: number, type: string, sort: string): Observable<PizzaPage>{
     return this.httpClient.get<PizzaPage>(this.baseUrl + '/sort' + `?page=${page}&type=${type}&sort=${sort}`);
   }

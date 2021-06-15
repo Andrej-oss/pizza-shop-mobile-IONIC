@@ -50,4 +50,8 @@ export class AppComponent {
   onHomePage(): void{
     this.router.navigate(['home']);
   }
+
+  onMyLinkedIn(): void{
+    this.router.navigate(['']);
+  }
 }

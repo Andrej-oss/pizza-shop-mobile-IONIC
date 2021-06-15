@@ -9,6 +9,7 @@ import {ThemeService} from '../../../../theme/behaviour-subject/theme.service';
 import {Comment} from '../../../models/Comment';
 import {AvatarService} from '../../../services/avatarDao/avatar.service';
 import {ToasterServiceService} from '../../../services/toaster/toaster-service.service';
+import {APiURL} from '../../../config/configURL';
 
 @Component({
   selector: 'app-comment',
@@ -30,7 +31,11 @@ export class CommentComponent implements OnInit {
   isLiked: boolean;
   voiceSum: number;
   error: string;
-  avatarUrl = 'http://localhost:8080/avatar/image/';
+  avatarUrl = APiURL.avatarImage;
+  @Output()
+  likedComment: EventEmitter<Comment> = new EventEmitter();
+  @Output()
+  likeId: EventEmitter<object> = new EventEmitter();
 
   constructor(private pizzaService: PizzaService,
               private avatarService: AvatarService,
@@ -67,10 +72,10 @@ export class CommentComponent implements OnInit {
       userId: this.themeService.data.value.userId
     };
     this.voiceService.saveVoice(id, this.voice).subscribe(data => {
-      debugger;
       this.themeService.data.value.message = 'Thank you for your vote';
       this.toaster.presentToast();
-      console.log(data);
+      this.comment.voice = [...this.comment.voice, data];
+      this.likedComment.emit(this.comment);
     });
     this.isLiked = true;
     this.voiceSum += 1;
@@ -83,7 +88,6 @@ export class CommentComponent implements OnInit {
 
   checkIsUserVoted(): void {
     const user = this.comment.voice.find(value => value.userId === this.themeObjectService.data.value.userId);
-    console.log(user);
     user && user.userId !== 0 ? this.isLiked = true : this.isLiked = false;
   }
 
@@ -91,12 +95,14 @@ export class CommentComponent implements OnInit {
     const voice = this.comment.voice.find(value => {
       return value.userId === this.themeObjectService.data.value.userId;
     });
-    if (voice) {
-      this.voiceService.deleteVoiceComment(voice.id).subscribe(data => console.log(data));
-      this.voiceSum -= 1;
-      this.isLiked = false;
-      this.themeService.data.value.message = `you deleted your like comment from  ${this.comment.author}`;
-      this.toaster.presentToast();
+    if (voice && this.isLiked) {
+      this.voiceService.deleteVoiceComment(voice.id).subscribe(data => {
+        this.voiceSum -= 1;
+        this.isLiked = false;
+        this.themeService.data.value.message = `you deleted your like comment from  ${this.comment.author}`;
+        this.toaster.presentToast();
+        this.likeId.emit({commentId: this.comment.id, voiceId: id});
+      });
     }
   }
   findUsersAvatar(avatar: string): object{

@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router} from '@angular/router';
 import {Observable, of} from 'rxjs';
-import {UserService} from '../../../services/userDao/user.service';
+import {UserService} from '../../userDao/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class UserPageGuardGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (this.userService.isUser()) {
+    if (this.userService.isAuthenticated()) {
       return of(true);
     } else {
       this.router.navigate(['user-auth'], {

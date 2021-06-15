@@ -28,8 +28,6 @@ export class CartCardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    debugger;
-    console.log(this.cartElements);
     this.totalPrice = 0;
     this.themeService.data.value.totalPrice = 0;
     this.getTotalPrice();
@@ -48,7 +46,6 @@ export class CartCardComponent implements OnInit {
   }
 
   onDeleteCart(id: number): void{
-    debugger;
     this.deletedCartItem.emit(id);
   }
 }

@@ -23,9 +23,13 @@
     text-align: left;
     text-wrap: unset;
     height: 40px;
+    margin: 5% 5% 5% 5%;
   }
   &-img{
     border-radius: 50%;
+  }
+  &-stars{
+    margin: 10% 40% 5% 15%;
   }
 }
 ion-button{

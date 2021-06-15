@@ -4,7 +4,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
+<ion-content *ngIf="!!pizza"
+             [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
   <ion-card [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
     <ion-item [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
       <ion-icon name="pin" slot="start"></ion-icon>
@@ -17,14 +18,19 @@
           </ion-card-title>
         </div>
         <div [className]="classSize">
-        <img [src]="sizeUrl+sizePizza.path" class="pizza-details-content-img">
+          <img [src]="sizeUrl+sizePizza.path" class="pizza-details-content-img">
         </div>
-        <app-stars [averageRating]="getAverageRating()"></app-stars>
+        <div class="pizza-details-content-stars">
+          <app-stars
+                     [pizzaId]="pizza.id"
+                     (ratedPizza)="ratedPizza($event)"
+                     [pizzaRating]="pizza.rating"></app-stars>
+        </div>
       </ion-label>
     </ion-item>
-    <ion-card-content *ngIf="sizePizza">
+    <ion-card-content *ngIf="sizePizza && pizza">
       <ion-card-subtitle class="pizza-details-content-desc">
-        {{themeService.data.value.pizza.description}}
+        {{pizza.description}}
       </ion-card-subtitle>
       <ion-button fill="outline" (click)="onSmall()" slot="end">Small</ion-button>
       <ion-button fill="outline" (click)="onMedium()" slot="end">Medium</ion-button>
@@ -32,7 +38,7 @@
       <h4>
         {{sizePizza.diameter}} - {{sizePizza.weight}}
       </h4>
-      <div class="pizza-details-content-ingredients">
+      <div class="pizza-details-content-ingredients" *ngIf="themeService.data.value.ingredients.length">
         <div *ngFor="let ingredient of themeService.data.value.ingredientsPizza">
           <div *ngFor="let ing of themeService.data.value.ingredients">
             <ion-card *ngIf="ingredient.id === +ing">
@@ -44,7 +50,10 @@
           </div>
         </div>
       </div>
-      <ion-button fill="outline" slot="end" (click)="onPayment()">
+      <ion-button fill="outline"
+                  slot="end"
+                  [disabled]="!themeService.data.value.userName.length"
+                  (click)="onPayment()">
         Buy for {{themeService.data.value.pizzaPrice}}
       </ion-button>
       <ion-button fill="outline" slot="end" (click)="savePizzaInCart(pizzaId)">
@@ -58,7 +67,7 @@
                      [tittle]="pizza.name"
                      [volume]="sizePizza.diameter"
                      [price]="themeService.data.value.pizzaPrice"
-                     [description]="pizza.description" ></app-payment>
+                     [description]="pizza.description"></app-payment>
       </div>
       <div *ngIf="isOpenComments">
         <div *ngIf="!comments.length">
@@ -66,9 +75,14 @@
         </div>
         <div *ngFor="let comment of comments">
           <app-comment (commentId)="deleteCommentById($event)"
-            [comment]="comment"></app-comment>
+                       (likedComment)="changeVoiceComment($event)"
+                       (likeId)="deleteVoiceComment($event)"
+                       [comment]="comment"></app-comment>
         </div>
-        <ion-button (click)="onOpenCommentForm()">{{!isOpenCommentForm ? "Write comment" : "Hide form"}}</ion-button>
+        <ion-button (click)="onOpenCommentForm()"
+                    [disabled]="!themeService.data.value.userName.length">
+          {{!isOpenCommentForm ? "Write comment" : "Hide form"}}
+        </ion-button>
         <div *ngIf="!!isOpenCommentForm">
           <app-comment-form
             [pizzaId]="pizzaId"

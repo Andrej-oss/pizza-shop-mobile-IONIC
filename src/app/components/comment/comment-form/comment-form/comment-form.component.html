@@ -1,24 +1,24 @@
 <ion-card
-  [style]="themeService.data.value.isDarkTheme ? 'background-color: black; color: white' : 'background-color: white; color: black'">
+  [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
   <form [formGroup]="comment">
     <ng-template>Creat comment</ng-template>
-    <ion-item style="width: 100%">
-      <ion-label
-        [style]="themeService.data.value.isDarkTheme ? 'color: white' : 'color: black'">Tittle</ion-label>
+    <ion-item style="width: 100%"
+              [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
+      <ion-label>
+        Tittle
+      </ion-label>
       <ion-input placeholder="Tittle"
              [style]="themeService.data.value.isDarkTheme ? 'width: 100%;box-shadow: 0 1px 0;' :'width: 100%'"
              [formControl]="tittle" required>
       </ion-input>
     </ion-item>
-    <ion-item style="width: 100%">
-      <ion-label
-        [style]="themeService.data.value.isDarkTheme ? 'color: white' : 'color: black'">
+    <ion-item style="width: 100%"
+              [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
+      <ion-label>
         Comment body
       </ion-label>
       <ion-textarea placeholder="Comment"
-                [style]="themeService.data.value.isDarkTheme ? 'width: 300px; height: 80px;box-shadow: 0 1px 0;'
-                :'width: 300px; height: 80px'"
-                [formControl]="body" required></ion-textarea>
+                    [formControl]="body" required></ion-textarea>
     </ion-item>
     <p *ngIf="!commentUser">
       <ion-button (click)="onSave(comment)">save</ion-button>

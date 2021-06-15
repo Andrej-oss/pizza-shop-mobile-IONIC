@@ -9,6 +9,7 @@ import {DrinkService} from '../../../services/drinkDao/drink.service';
 import {CartService} from '../../../services/cartDao/cart.service';
 import {ActivatedRoute} from '@angular/router';
 import {PaymentComponent} from '../../../components/payment-stripe/payment/payment.component';
+import {APiURL} from '../../../config/configURL';
 
 @Component({
   selector: 'app-drink-detail',
@@ -18,7 +19,7 @@ import {PaymentComponent} from '../../../components/payment-stripe/payment/payme
 export class DrinkDetailPage implements OnInit {
 
   drinks: Drink[];
-  url = 'http://localhost:8080/drink/';
+  url = APiURL.drinkImage;
   isPaymentOpen: boolean;
   cart: Cart;
   drink: Drink;

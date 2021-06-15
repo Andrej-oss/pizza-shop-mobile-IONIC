@@ -5,6 +5,7 @@ import {NavController} from '@ionic/angular';
 import {UserService} from '../../../services/userDao/user.service';
 import {ThemeService} from '../../../../theme/behaviour-subject/theme.service';
 import {User} from '../../../models/User';
+import {ToasterServiceService} from '../../../services/toaster/toaster-service.service';
 
 @Component({
   selector: 'app-user-registration',
@@ -31,10 +32,12 @@ export class UserRegistrationPage implements OnInit {
   isOpenPasswordStep = true;
   isOpenAddressStep: boolean;
   isFinalStep: boolean;
+  error: string;
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
               private router: Router,
+              private toaster: ToasterServiceService,
               private navCtr: NavController,
               public themeService: ThemeService) {
   }
@@ -113,16 +116,17 @@ export class UserRegistrationPage implements OnInit {
       email: `${secondFormGroup.controls.email.value}`.trim().toLowerCase(),
       role: 'ROLE_USER'
     };
-    console.log(user);
     this.firstFormGroup.disable();
     this.secondFormGroup.disable();
     this.userService.saveUser(user).subscribe(data => {
-      console.log(data);
       // tslint:disable-next-line:no-shadowed-variable
-      this.router.navigate(['']).then(data => console.log(data));
+      this.router.navigate(['/']).then(data => console.log(data));
+      this.themeService.data.value.message = 'Registration success, chek your email';
+      this.toaster.presentToast();
     }, error => {
       this.firstFormGroup.enable();
       this.secondFormGroup.enable();
+      this.error = error.message;
     });
   }
 
@@ -142,7 +146,6 @@ export class UserRegistrationPage implements OnInit {
     this.firstFormGroup.disable();
     this.secondFormGroup.disable();
     this.userService.updateUser(+this.user.id, user).subscribe(data => {
-      console.log(data);
       // tslint:disable-next-line:no-shadowed-variable
       this.router.navigate(['']).then(data => console.log(data));
     }, error => {

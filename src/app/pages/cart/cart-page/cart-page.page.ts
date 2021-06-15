@@ -88,6 +88,7 @@ export class CartPagePage implements OnInit, OnDestroy {
     if ( typeof id === 'number' ) {
       const index = this.cartElements.findIndex(value => value.id === id);
       this.cartElements.splice(index, 1);
+      this.themeService.data.value.cartElements --;
     }else if (!!id.length) {
       this.cartElements = this.cartService.deleteCartElementFromLocalStorage(id);
     }

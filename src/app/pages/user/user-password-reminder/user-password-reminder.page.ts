@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {ThemeService} from '../../../../theme/behaviour-subject/theme.service';
 import {UserService} from '../../../services/userDao/user.service';
+import {ToasterServiceService} from '../../../services/toaster/toaster-service.service';
 
 @Component({
   selector: 'app-user-password-reminder',
@@ -16,6 +17,7 @@ export class UserPasswordReminderPage implements OnInit {
   error: string;
   constructor(public themeService: ThemeService,
               private router: Router,
+              private toaster: ToasterServiceService,
               private userService: UserService) {
     this.reminderForm = new FormGroup({
       email: this.email = new FormControl('', [Validators.required, Validators.email])
@@ -30,13 +32,13 @@ export class UserPasswordReminderPage implements OnInit {
     this.userService.passwordReminder(authForm.controls.email.value)
       .subscribe(data => {
           this.error = null;
-          console.log(data);
         },
         (error => {
-          console.log(error);
           if (error.status === 200){
             this.router.navigate(['/']).then(data1 => console.log(data1));
-          //  this.themeService.data.value.message = 'Sending! Check your email';
+            this.themeService.data.value.message = 'Sending! Check your email';
+            this.toaster.presentToast();
+            this.reminderForm.enable();
           }
           this.error = error.error.tittle;
           this.reminderForm.enable();

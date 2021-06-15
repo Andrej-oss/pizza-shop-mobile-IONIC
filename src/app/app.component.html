@@ -6,15 +6,6 @@
           <div class="pizza-shop-logo">
             <ion-toggle (click)="onDarkTheme()"></ion-toggle>
           </div>
-          <div (click)="onUserPage()">
-            <ion-avatar *ngIf="!!this.themeService.data.value.avatar">
-              <img src="{{avatarUrl + this.themeService.data.value.avatar.path}}"
-                   class="pizza-shop-logo"/>
-            </ion-avatar>
-            <p *ngIf="!!themeService.data.value.principle">
-              {{themeService.data.value.principle.username}}
-            </p>
-          </div>
         </div>
         <ion-list id="inbox-list">
           <ion-list-header  (click)="onHomePage()"
@@ -24,6 +15,22 @@
           </ion-list-header>
 
           <ion-menu-toggle auto-hide="false">
+            <ion-item [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'"
+                      routerDirection="root"
+                      [routerLink]="['user-page']"
+                      lines="none" detail="false"
+                      routerLinkActive="selected">
+              <ion-avatar *ngIf="!!this.themeService.data.value.avatar">
+                <img src="{{avatarUrl + this.themeService.data.value.avatar.path}}"
+                     class="pizza-shop-logo"/>
+              </ion-avatar>
+              <h2 style="margin-left: 50%" *ngIf="!!themeService.data.value.principle">
+                {{themeService.data.value.userName}}
+              </h2>
+              <ion-label>
+
+              </ion-label>
+            </ion-item>
             <ion-item [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'"
                       routerDirection="root"
                       [routerLink]="['pizza']"
@@ -115,7 +122,7 @@
               <ion-icon name="logo-twitter"></ion-icon>
             </ion-fab-button>
             <ion-fab-button color="light">
-              <ion-icon name="logo-linkedin"></ion-icon>
+              <ion-icon name="logo-linkedin" (click)="onMyLinkedIn()"></ion-icon>
             </ion-fab-button>
           </ion-fab-list>
         </ion-fab>

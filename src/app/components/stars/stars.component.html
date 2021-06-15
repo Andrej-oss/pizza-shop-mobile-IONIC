@@ -1,6 +1,13 @@
-<div class="col-sm-12">
+<div class="col-sm-12" *ngIf="!!isRatedPizza || !themeService.data.value.userId">
   <ul class="list-inline rating-list" *ngFor="let star of stars" style="display: inline-block">
     <li [ngClass]="{'selected': (star <= averageRating)}">
+      <ion-icon name="heart"></ion-icon>
+    </li>
+  </ul>
+</div>
+<div class="col-sm-12" *ngIf="!isRatedPizza && !!themeService.data.value.userId">
+  <ul class="list-inline rating-list" *ngFor="let star of stars" style="display: inline-block">
+    <li (click)="countStar(star)" [ngClass]="{'selected': (star <= selectedValue)}">
       <ion-icon name="heart"></ion-icon>
     </li>
   </ul>

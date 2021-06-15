@@ -16,7 +16,8 @@
                      (deletedCartItem)="onDeleteCartItem($event)">
 
       </app-cart-card>
-      <ion-button (click)="onAddressOpen()">Next</ion-button>
+      <ion-button [disabled]="!themeService.data.value.userName.length"
+        (click)="onAddressOpen()">Next</ion-button>
     </div>
     <ion-card [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
       <div class="pizza-cart-page-payment-content-user"
@@ -53,10 +54,10 @@
       </ion-card>
     </div>
     </ion-card>
-    <div *ngIf="cartElements.length > 0">
-      <h1>
-        Your cart is empty.
-      </h1>
-    </div>
+  </div>
+  <div *ngIf="cartElements.length === 0">
+    <h1>
+      Your cart is empty.
+    </h1>
   </div>
 </ion-content>

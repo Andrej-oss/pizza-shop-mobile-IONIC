@@ -21,6 +21,7 @@ const dessertImage = `${APi}` + 'dessert/';
 const drinkImage = `${APi}` + 'drink/';
 const snackImage = `${APi}` + 'snack/';
 const avatarImage = `${APi}` + 'avatar/image/';
+const pizzaSizeImage = `${APi}size/image/`;
 const localStorageKey = 'PizzaShopCart';
 
 export const APiURL = {
@@ -44,5 +45,6 @@ export const APiURL = {
   drinkImage,
   snackImage,
   avatarImage,
+  pizzaSizeImage,
   localStorageKey
 };

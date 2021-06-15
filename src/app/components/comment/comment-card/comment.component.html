@@ -1,12 +1,12 @@
 <ion-card
-  [style]="themeService.data.value.isDarkTheme ? 'background-color: black; color: white' : 'background-color: white; color: black'"
+  [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'"
   *ngIf="!isEditComment">
   <div style="display: flex; justify-content: space-between">
     <ion-card-header>
-      <ion-avatar class="example-header-image">
+      <ion-avatar>
         <p *ngIf="findUsersAvatar(comment.author.toLowerCase()) !== null">
           <img src="{{avatarUrl + findAvatar}}"
-               style="width: 50%; border-radius: 50%">
+               style="width: 200px; border-radius: 100%">
         </p>
         <p *ngIf="findUsersAvatar(comment.author.toLowerCase()) !== null">
           <ion-icon ios="ios-contact" md="md-contact"></ion-icon>
@@ -16,11 +16,13 @@
       <ion-card-subtitle>{{comment.author}}</ion-card-subtitle>
     </ion-card-header>
     <div *ngIf="themeService.data.value.userName === comment.author.toLowerCase()">
-      <ion-button (click)="onDeleteComment(comment.id)">
-        delete
-      </ion-button>
+      <ion-icon name="trash-outline"
+                size="large"
+                (click)="onDeleteComment(comment.id)"></ion-icon>
       <p>
-        <ion-button (click)="onEdit(comment.id)">edit</ion-button>
+        <ion-icon name="build-outline"
+                  size="large"
+                  (click)="onEdit(comment.id)"></ion-icon>
       </p>
     </div>
   </div>
@@ -33,17 +35,15 @@
   <h6 *ngIf="comment.upDated">{{comment.upDated ? "updated" : ""}}</h6>
   <div style="display: flex; justify-content: space-between">
     <div>
-      <ion-card>
         <ion-button (click)="onLikeComment(comment.id)"
                     [disabled]="isLiked || themeObjectService.data.value.userId === 0">
           LIKE
         </ion-button>
-      </ion-card>
     </div>
     <div>
-      <ion-icon ios="ios-heart" md="md-heart" (click)="onDeleteVoice(comment.id)"
+      <ion-icon name="heart" (click)="onDeleteVoice(comment.id)"
+                size="large"
                 [style]="isLiked ? 'color: red' : 'color: grey'"></ion-icon>
-      <ion-icon ios="ios-heart" md="md-heart"></ion-icon>
       <!--                [disabled]="themeObjectService.data.value.userId === 0">-->
       <p style="margin: 50% 0% 0% 40%">{{this.voiceSum}}</p>
     </div>

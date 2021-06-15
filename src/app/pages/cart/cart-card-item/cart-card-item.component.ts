@@ -74,7 +74,8 @@ export class CartCardItemComponent implements OnInit {
           this.cartService.addAmountPizzaCart(this.cartElement.id, this.pizza.price).subscribe(data => console.log(data));
         }else if (!this.userService.isAuthenticated()){
           this.cart = this.cartService.onIncCartElementInLocalStorage(this.cart.description, this.pizzaPrice);
-        }   this.price = this.price + this.drink.price;
+        }
+        this.price = this.price + this.drink.price;
         this.themeService.data.value.totalPrice = this.themeService.data.value.totalPrice + this.drink.price;
       } else if (this.snack) {
         this.cart = {
@@ -88,7 +89,8 @@ export class CartCardItemComponent implements OnInit {
           this.cartService.addAmountPizzaCart(this.cartElement.id, this.pizza.price).subscribe(data => console.log(data));
         }else if (!this.userService.isAuthenticated()){
           this.cart = this.cartService.onIncCartElementInLocalStorage(this.cart.description, this.pizzaPrice);
-        }  this.price = this.price + this.snack.price;
+        }
+        this.price = this.price + this.snack.price;
         this.themeService.data.value.totalPrice = this.themeService.data.value.totalPrice + this.snack.price;
       } else if (this.dessert) {
         this.cart = {
@@ -129,7 +131,7 @@ export class CartCardItemComponent implements OnInit {
         }else if (!this.userService.isAuthenticated()){
           this.cartService.onDecCartElementInLocalStorage(this.cart.description, this.pizzaPrice);
         }
-        this.price = this.price - this.pizza.price;
+        this.price = this.price - this.pizzaPrice;
         this.themeService.data.value.totalPrice = this.themeService.data.value.totalPrice - this.pizzaPrice;
       } else if (this.drink) {
         this.cart = {
@@ -144,7 +146,8 @@ export class CartCardItemComponent implements OnInit {
           this.cartService.removeAmountPizzaCart(this.cartElement.id, this.pizza.price).subscribe(data => console.log(data));
         }else if (!this.userService.isAuthenticated()){
           this.cartService.onDecCartElementInLocalStorage(this.cart.description, this.pizzaPrice);
-        }  this.price = this.price - this.drink.price;
+        }
+        this.price = this.price - this.drink.price;
         this.themeService.data.value.totalPrice = this.themeService.data.value.totalPrice - this.drink.price;
       } else if (this.snack) {
         this.cart = {
@@ -172,10 +175,10 @@ export class CartCardItemComponent implements OnInit {
           this.cartService.removeAmountPizzaCart(this.cartElement.id, this.pizza.price).subscribe(data => console.log(data));
         }else if (!this.userService.isAuthenticated()){
           this.cartService.onDecCartElementInLocalStorage(this.cart.description, this.pizzaPrice);
-        }   this.price = this.price - this.dessert.price;
+        }
+        this.price = this.price - this.dessert.price;
         this.themeService.data.value.totalPrice = this.themeService.data.value.totalPrice - this.dessert.price;
       }
-      // todo this.userService.decAmountPizzaCartInStore(this.cartElement.id, this.cart);
       this.count = this.count - 1;
     } catch (e) {
       console.log(e);
@@ -183,12 +186,12 @@ export class CartCardItemComponent implements OnInit {
   }
 
   onDelete(id: number, description: string): void {
-    console.log(id, description);
     if (this.userService.isAuthenticated()) {
       this.cartService.deleteCart(id).subscribe(data => console.log(data));
       this.deletedItem.emit(id);
     }else {
       this.deletedItem.emit(description);
+      this.themeService.data.value.cartElements --;
     }
     this.themeService.data.value.totalPrice = this.themeService.data.value.totalPrice - this.cartElement.price;
   }

@@ -1,0 +1,100 @@
+<ion-header>
+  <ion-toolbar [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
+    <ion-title>
+      home-page
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content
+  *ngIf="pizzas"
+  [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
+  Pizza
+  <ion-card
+    [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'"
+    *ngFor="let pizza of pizzas">
+    <ion-item [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
+      <ion-icon name="pin" slot="start"></ion-icon>
+      <ion-label>
+        <img [src]="url+pizza.path"
+             class="pizza-card-image"
+        ></ion-label>
+      <ion-button fill="outline" slot="end" (click)="onPizzaDetail(pizza.id)">View</ion-button>
+    </ion-item>
+
+    <ion-card-content>
+      {{pizza.description}}
+      <h4>
+        {{pizza.name}} - {{pizza.price}}
+      </h4>
+    </ion-card-content>
+  </ion-card>
+  <ion-button (click)="onShowMorePizza()">show more</ion-button>
+  <div *ngIf="desserts && desserts.length">
+    <ion-card-title>Desserts</ion-card-title>
+    <ion-card [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'"
+              *ngFor="let dessert of desserts; let i = index">
+      <div *ngIf="i < 5">
+        <ion-item [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
+          <ion-icon name="pin" slot="start"></ion-icon>
+          <ion-label>
+            <img [src]="urlDessert+dessert.path"
+                 class="dessert-card-image">
+          </ion-label>
+          <ion-button fill="outline" slot="end" (click)="chooseDessert(dessert.id)">
+            View
+          </ion-button>
+        </ion-item>
+        {{dessert.description}}
+      <h2>
+        {{dessert.name}} - {{dessert.price}}
+      </h2>
+      </div>
+    </ion-card>
+    <ion-button (click)="onShowMoreDesserts()">show more</ion-button>
+  </div>
+    <div *ngIf="drinks && drinks.length">
+      <ion-card-title>Drinks</ion-card-title>
+      <ion-card [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'"
+                *ngFor="let drink of drinks; let i = index">
+        <div *ngIf="i < 5">
+          <ion-item [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
+            <ion-icon name="pin" slot="start"></ion-icon>
+            <ion-label>
+              <img [src]="urlDrink+drink.path"
+                   class="dessert-card-image">
+            </ion-label>
+            <ion-button fill="outline" slot="end" (click)="chooseDrink(drink.id)">View</ion-button>
+          </ion-item>
+          {{drink.volume}}
+        <h2>
+          {{drink.name}} - {{drink.price}}
+        </h2>
+        </div>
+      </ion-card>
+      <ion-button (click)="onShowMoreDrinks()">show more</ion-button>
+    </div>
+      <div *ngIf="snacks && snacks.length">
+        <ion-card-title>Snacks</ion-card-title>
+        <ion-card [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'"
+                  *ngFor="let snack of snacks; let i = index">
+          <div *ngIf="i < 5">
+            <ion-item [color]="themeService.data.value.isDarkTheme ? 'dark' : 'light'">
+              <ion-icon name="pin" slot="start"></ion-icon>
+              <ion-label>
+                <img [src]="urlSnack+snack.path"
+                     class="dessert-card-image">
+              </ion-label>
+              <ion-button fill="outline" slot="end" (click)="chooseSnack(snack.id)">View</ion-button>
+            </ion-item>
+            <ion-card-content>
+              {{snack.description}}
+          <h2>
+            {{snack.name}} - {{snack.price}}
+          </h2>
+          </ion-card-content>
+          </div>
+        </ion-card>
+        <ion-button (click)="onShowMoreSnacks()">show more</ion-button>
+      </div>
+</ion-content>
